@@ -1,0 +1,57 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Tasmania and the ACT protect the most land; Queensland the least",
+    "subtitle": "Share of each state's land inside protected areas, 2024",
+    "anchor": "start"
+  },
+  "width": "container",
+  "height": 420,
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-132, 0]},
+  "layer": [
+    {
+      "data": {"values": [{}]},
+      "mark": {"type": "rect", "fill": "#e3eef4"},
+      "encoding": {
+        "x": {"value": 0}, "y": {"value": 0},
+        "x2": {"value": "width"}, "y2": {"value": "height"}
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/australia_states.json",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.STE_NAME26",
+          "from": {
+            "data": {"url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/protected_by_state.csv"},
+            "key": "state",
+            "fields": ["percent_protected", "protected_area_count"]
+          }
+        }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
+      "encoding": {
+        "color": {
+          "field": "percent_protected",
+          "type": "quantitative",
+          "title": "Land protected (%)",
+          "scale": {
+            "type": "threshold",
+            "domain": [10, 20, 30, 40],
+            "range": ["#edf8e9", "#bae4b3", "#74c476", "#31a354", "#006d2c"]
+          },
+          "legend": {"orient": "right"}
+        },
+        "tooltip": [
+          {"field": "properties.STE_NAME26", "type": "nominal", "title": "State"},
+          {"field": "percent_protected", "type": "quantitative", "title": "Land protected (%)"},
+          {"field": "protected_area_count", "type": "quantitative", "title": "Number of protected areas", "format": ","}
+        ]
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}}
+}
