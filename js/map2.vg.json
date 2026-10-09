@@ -1,0 +1,226 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "797 national parks, from tiny islands to desert giants",
+    "subtitle": "Each circle is one mainland or Tasmanian national park, sized by area. The 8 parks this story follows are outlined and named.",
+    "anchor": "start"
+  },
+  "width": "container",
+  "height": 460,
+  "projection": {
+    "type": "conicEqualArea",
+    "parallels": [
+      -18,
+      -36
+    ],
+    "rotate": [
+      -132,
+      0
+    ]
+  },
+  "layer": [
+    {
+      "data": {
+        "values": [
+          {}
+        ]
+      },
+      "mark": {
+        "type": "rect",
+        "fill": "#e3eef4"
+      },
+      "encoding": {
+        "x": {
+          "value": 0
+        },
+        "y": {
+          "value": 0
+        },
+        "x2": {
+          "value": "width"
+        },
+        "y2": {
+          "value": "height"
+        }
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/australia_states.json",
+        "format": {
+          "type": "topojson",
+          "feature": "states"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#f4f1ea",
+        "stroke": "#b8b8b8",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/national_parks.csv"
+      },
+      "transform": [
+        {
+          "filter": "datum.state != 'EXT'"
+        },
+        {
+          "calculate": "toNumber(substring(datum.date_declared, 0, 4))",
+          "as": "year"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "sum",
+              "field": "area_ha",
+              "as": "total_area"
+            },
+            {
+              "op": "argmax",
+              "field": "area_ha",
+              "as": "largest_part"
+            },
+            {
+              "op": "min",
+              "field": "year",
+              "as": "year_declared"
+            }
+          ],
+          "groupby": [
+            "pa_id",
+            "name",
+            "state"
+          ]
+        },
+        {
+          "calculate": "datum.largest_part.longitude",
+          "as": "lon"
+        },
+        {
+          "calculate": "datum.largest_part.latitude",
+          "as": "lat"
+        },
+        {
+          "calculate": "indexof(['CWTH_06', 'QLD_0017DAB001', 'VIC_3308', 'SA_0012', 'WA_30082', 'TAS_50238', 'ACT_39', 'NSW_N0030'], datum.pa_id) >= 0",
+          "as": "featured"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {
+            "type": "circle",
+            "opacity": 0.55,
+            "color": "#2e7d32"
+          },
+          "encoding": {
+            "longitude": {
+              "field": "lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "lat",
+              "type": "quantitative"
+            },
+            "size": {
+              "field": "total_area",
+              "type": "quantitative",
+              "title": "Park area (hectares)",
+              "scale": {
+                "range": [
+                  4,
+                  1500
+                ]
+              },
+              "legend": {
+                "values": [
+                  100000,
+                  1000000,
+                  3000000
+                ],
+                "format": ",.0f",
+                "orient": "right",
+                "titleLimit": 300
+              }
+            },
+            "stroke": {
+              "condition": {
+                "test": "datum.featured",
+                "value": "#1b1b1b"
+              },
+              "value": null
+            },
+            "strokeWidth": {
+              "condition": {
+                "test": "datum.featured",
+                "value": 2
+              },
+              "value": 0
+            },
+            "tooltip": [
+              {
+                "field": "name",
+                "type": "nominal",
+                "title": "National park"
+              },
+              {
+                "field": "state",
+                "type": "nominal",
+                "title": "State or territory"
+              },
+              {
+                "field": "total_area",
+                "type": "quantitative",
+                "title": "Area (hectares)",
+                "format": ",.0f"
+              },
+              {
+                "field": "year_declared",
+                "type": "quantitative",
+                "title": "First declared",
+                "format": "d"
+              }
+            ]
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "datum.featured"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 9,
+            "dy": -6,
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "color": "#1b1b1b"
+          },
+          "encoding": {
+            "longitude": {
+              "field": "lon",
+              "type": "quantitative"
+            },
+            "latitude": {
+              "field": "lat",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "name",
+              "type": "nominal"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}
