@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Half of Australia's protected land is Indigenous Protected Areas",
+    "subtitle": ["National parks make up about a quarter. Each square is 1% of all protected land."],
+    "anchor": "start"
+  },
+  "width": 300,
+  "height": 300,
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/protected_by_type.csv"
+  },
+  "transform": [
+    {"filter": "indexof(datum.type, 'Antarctic') == -1"},
+    {
+      "calculate": "datum.type == 'Indigenous Protected Area' ? 'Indigenous Protected Areas' : (indexof(datum.type, 'National Park') >= 0 && indexof(datum.type, 'Act') == -1) ? 'National parks' : datum.type == 'Nature Reserve' ? 'Nature reserves' : indexof(['Private Nature Reserve', 'Nature Refuge', 'Heritage Agreement', 'Conservation Covenant', 'Conservation Agreement', 'Biodiversity Stewardship Agreement', 'Private Sanctuary', 'Southern Mallee Private Reserve', 'NCT Agreement', 'Registered Property Agreement'], datum.type) >= 0 ? 'Private land' : 'Other reserves'",
+      "as": "group"
+    },
+    {"aggregate": [{"op": "sum", "field": "area_ha", "as": "area"}], "groupby": ["group"]},
+    {"joinaggregate": [{"op": "sum", "field": "area", "as": "total"}]},
+    {"calculate": "datum.area / datum.total * 100", "as": "share"},
+    {
+      "calculate": "indexof(['Indigenous Protected Areas', 'National parks', 'Nature reserves', 'Private land', 'Other reserves'], datum.group)",
+      "as": "order"
+    },
+    {
+      "window": [{"op": "sum", "field": "share", "as": "cumulative"}],
+      "sort": [{"field": "order"}]
+    },
+    {"calculate": "round(datum.cumulative - datum.share)", "as": "first_square"},
+    {"calculate": "round(datum.cumulative)", "as": "last_square"},
+    {"calculate": "datum.last_square - datum.first_square", "as": "squares"},
+    {"calculate": "datum.group + ' (' + datum.squares + '%)'", "as": "label"},
+    {"calculate": "sequence(datum.first_square, datum.last_square)", "as": "square_id"},
+    {"flatten": ["square_id"]},
+    {"calculate": "datum.square_id % 10", "as": "column"},
+    {"calculate": "floor(datum.square_id / 10)", "as": "row"}
+  ],
+  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
+  "encoding": {
+    "x": {"field": "column", "type": "ordinal", "axis": null},
+    "y": {"field": "row", "type": "ordinal", "axis": null},
+    "color": {
+      "field": "label",
+      "type": "nominal",
+      "title": "Type of protected land",
+      "sort": {"field": "order"},
+      "scale": {"range": ["#b5651d", "#2e7d32", "#81c784", "#d4b96a", "#c8c8c8"]},
+      "legend": {"orient": "right", "labelLimit": 300, "titleLimit": 300}
+    },
+    "tooltip": [
+      {"field": "group", "type": "nominal", "title": "Type"},
+      {"field": "squares", "type": "quantitative", "title": "Share of protected land (%)"},
+      {"field": "area", "type": "quantitative", "title": "Area (hectares)", "format": ",.0f"}
+    ]
+  },
+  "config": {"view": {"stroke": null}}
+}
