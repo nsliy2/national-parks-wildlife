@@ -1,0 +1,26 @@
+status,animal_group,species_count
+Extinct,Frogs,4
+Extinct,Reptiles,1
+Extinct,Birds,22
+Extinct,Mammals,39
+Extinct,Other animals,1
+Extinct in the wild,Fishes,1
+Critically endangered,Fishes,28
+Critically endangered,Frogs,18
+Critically endangered,Reptiles,27
+Critically endangered,Birds,18
+Critically endangered,Mammals,9
+Critically endangered,Other animals,49
+Endangered,Fishes,33
+Endangered,Frogs,15
+Endangered,Reptiles,42
+Endangered,Birds,70
+Endangered,Mammals,47
+Endangered,Other animals,48
+Vulnerable,Fishes,22
+Vulnerable,Frogs,16
+Vulnerable,Reptiles,34
+Vulnerable,Birds,76
+Vulnerable,Mammals,57
+Vulnerable,Other animals,16
+Conservation dependent,Fishes,7
