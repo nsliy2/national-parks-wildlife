@@ -1,0 +1,267 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Queensland has the most national parks, but most are small",
+    "subtitle": [
+      "Each dot is one national park (797 in total). The black line marks each state's typical (median) park.",
+      "Each step along the axis is 10 times bigger. The typical NT park is about 37 times larger than Queensland's."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": {
+    "step": 46
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/national_parks.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "area_ha": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "filter": "datum.state != 'EXT'"
+    },
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "area_ha",
+          "as": "total_area"
+        }
+      ],
+      "groupby": [
+        "pa_id",
+        "name",
+        "state"
+      ]
+    },
+    {
+      "calculate": "{'NT': 'Northern Territory', 'ACT': 'ACT', 'SA': 'South Australia', 'TAS': 'Tasmania', 'VIC': 'Victoria', 'WA': 'Western Australia', 'JBT': 'Jervis Bay Territory', 'NSW': 'New South Wales', 'QLD': 'Queensland'}[datum.state]",
+      "as": "state_name"
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "as": "parks_in_state"
+        },
+        {
+          "op": "median",
+          "field": "total_area",
+          "as": "state_median"
+        }
+      ],
+      "groupby": [
+        "state_name"
+      ]
+    },
+    {
+      "calculate": "datum.state_name + ' (' + datum.parks_in_state + ')'",
+      "as": "state_label"
+    },
+    {
+      "calculate": "random()",
+      "as": "jitter"
+    },
+    {
+      "calculate": "indexof(['CWTH_06', 'QLD_0017DAB001', 'VIC_3308', 'SA_0012', 'WA_01090', 'TAS_50238', 'ACT_39', 'NSW_N0030'], datum.pa_id) >= 0",
+      "as": "featured"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "state_label",
+      "type": "nominal",
+      "sort": {
+        "field": "state_median",
+        "op": "max",
+        "order": "descending"
+      },
+      "title": null,
+      "axis": {
+        "labelFontSize": 12,
+        "labelLimit": 260,
+        "domain": false,
+        "ticks": false,
+        "grid": false
+      }
+    },
+    "x": {
+      "field": "total_area",
+      "type": "quantitative",
+      "scale": {
+        "type": "log",
+        "domain": [
+          1,
+          5000000
+        ]
+      },
+      "title": "Park area (hectares, log scale: each step is 10× bigger)",
+      "axis": {
+        "values": [
+          1,
+          10,
+          100,
+          1000,
+          10000,
+          100000,
+          1000000
+        ],
+        "format": ",.0f",
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "grid": true,
+        "gridColor": "#eee"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "size": 28,
+        "color": "#2e7d32",
+        "opacity": 0.45
+      },
+      "encoding": {
+        "yOffset": {
+          "field": "jitter",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -0.6,
+              1.6
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "name",
+            "title": "National park"
+          },
+          {
+            "field": "state_name",
+            "title": "State/territory"
+          },
+          {
+            "field": "total_area",
+            "type": "quantitative",
+            "title": "Area (ha)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "tick",
+        "color": "#111",
+        "thickness": 3,
+        "size": 34
+      },
+      "encoding": {
+        "x": {
+          "aggregate": "median",
+          "field": "total_area",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "state_label",
+            "title": "State/territory (parks)"
+          },
+          {
+            "aggregate": "median",
+            "field": "total_area",
+            "type": "quantitative",
+            "title": "Typical (median) park, ha",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.featured"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "size": 90,
+        "fill": "#2e7d32",
+        "stroke": "#111",
+        "strokeWidth": 1.5,
+        "opacity": 1
+      },
+      "encoding": {
+        "yOffset": {
+          "field": "jitter",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -0.6,
+              1.6
+            ]
+          }
+        },
+        "tooltip": [
+          {
+            "field": "name",
+            "title": "Featured park"
+          },
+          {
+            "field": "total_area",
+            "type": "quantitative",
+            "title": "Area (ha)",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.featured"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 8,
+        "dy": -9,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#111"
+      },
+      "encoding": {
+        "yOffset": {
+          "field": "jitter",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -0.6,
+              1.6
+            ]
+          }
+        },
+        "text": {
+          "field": "name"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Helvetica, Arial, sans-serif"
+  }
+}
