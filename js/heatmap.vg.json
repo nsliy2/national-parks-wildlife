@@ -1,0 +1,189 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Birds and mammals top the threatened list",
+    "subtitle": [
+      "Australian animal species and subspecies in each EPBC Act category.",
+      "39 mammals are already extinct, more than all other groups combined."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": 300,
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/threatened_animals_by_status.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "species_count": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "impute": "species_count",
+      "key": "status",
+      "keyvals": [
+        "Extinct",
+        "Extinct in the wild",
+        "Critically endangered",
+        "Endangered",
+        "Vulnerable",
+        "Conservation dependent"
+      ],
+      "groupby": [
+        "animal_group"
+      ],
+      "value": 0
+    },
+    {
+      "calculate": "datum.species_count == 0 ? '0' : datum.species_count < 10 ? '1–9' : datum.species_count < 25 ? '10–24' : datum.species_count < 50 ? '25–49' : '50+'",
+      "as": "band"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "status",
+      "type": "ordinal",
+      "sort": [
+        "Extinct",
+        "Extinct in the wild",
+        "Critically endangered",
+        "Endangered",
+        "Vulnerable",
+        "Conservation dependent"
+      ],
+      "title": "EPBC Act status (most severe on the left)",
+      "axis": {
+        "orient": "bottom",
+        "labelAngle": 0,
+        "labelExpr": "datum.label == 'Extinct in the wild' ? ['Extinct in', 'the wild'] : datum.label == 'Critically endangered' ? ['Critically', 'endangered'] : datum.label == 'Conservation dependent' ? ['Conservation', 'dependent'] : datum.label",
+        "labelFontSize": 12,
+        "titleFontSize": 12,
+        "titlePadding": 12,
+        "domain": false,
+        "ticks": false,
+        "labelPadding": 6
+      }
+    },
+    "y": {
+      "field": "animal_group",
+      "type": "nominal",
+      "sort": [
+        "Birds",
+        "Mammals",
+        "Other animals",
+        "Reptiles",
+        "Fishes",
+        "Frogs"
+      ],
+      "title": null,
+      "axis": {
+        "labelFontSize": 12,
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "color": {
+          "field": "band",
+          "type": "ordinal",
+          "scale": {
+            "domain": [
+              "0",
+              "1–9",
+              "10–24",
+              "25–49",
+              "50+"
+            ],
+            "range": [
+              "#f7f7f7",
+              "#fee5d9",
+              "#fcae91",
+              "#fb6a4a",
+              "#cb181d"
+            ]
+          },
+          "legend": {
+            "title": "Species (count)",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "symbolType": "square",
+            "symbolSize": 200,
+            "symbolStrokeColor": "#ccc",
+            "symbolStrokeWidth": 0.5,
+            "labelFontSize": 11,
+            "titleFontSize": 12,
+            "offset": 16
+          }
+        },
+        "tooltip": [
+          {
+            "field": "animal_group",
+            "type": "nominal",
+            "title": "Animal group"
+          },
+          {
+            "field": "status",
+            "type": "nominal",
+            "title": "EPBC status"
+          },
+          {
+            "field": "species_count",
+            "type": "quantitative",
+            "title": "Species"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.animal_group == 'Mammals' && datum.status == 'Extinct'"
+        }
+      ],
+      "mark": {
+        "type": "rect",
+        "fill": null,
+        "stroke": "#222",
+        "strokeWidth": 2.5
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "fontSize": 13
+      },
+      "encoding": {
+        "text": {
+          "field": "species_count",
+          "type": "quantitative"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.species_count >= 50",
+            "value": "white"
+          },
+          "value": "#222"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "Helvetica, Arial, sans-serif"
+  }
+}
