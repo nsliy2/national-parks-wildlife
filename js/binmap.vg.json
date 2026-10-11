@@ -98,7 +98,7 @@
       "expr": "[views[pick_animal][0] - 132, views[pick_animal][1]]"
     },
     "scale": {
-      "expr": "width * 1.05 * views[pick_animal][2]"
+      "expr": "min(width * 1.05, height * 1.75) * views[pick_animal][2]"
     }
   },
   "layer": [
