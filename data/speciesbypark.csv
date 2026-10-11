@@ -1,0 +1,57 @@
+park,state,animal_group,species_count
+Royal,New South Wales,All animals,4866
+Royal,New South Wales,Birds,614
+Royal,New South Wales,Mammals,100
+Royal,New South Wales,Reptiles,71
+Royal,New South Wales,Amphibians,33
+Royal,New South Wales,Fishes,359
+Royal,New South Wales,Insects,2452
+Wilsons Promontory,Victoria,All animals,2068
+Wilsons Promontory,Victoria,Birds,391
+Wilsons Promontory,Victoria,Mammals,66
+Wilsons Promontory,Victoria,Reptiles,27
+Wilsons Promontory,Victoria,Amphibians,14
+Wilsons Promontory,Victoria,Fishes,154
+Wilsons Promontory,Victoria,Insects,915
+Daintree,Queensland,All animals,1264
+Daintree,Queensland,Birds,333
+Daintree,Queensland,Mammals,50
+Daintree,Queensland,Reptiles,41
+Daintree,Queensland,Amphibians,32
+Daintree,Queensland,Fishes,24
+Daintree,Queensland,Insects,637
+Ikara-Flinders Ranges,South Australia,All animals,763
+Ikara-Flinders Ranges,South Australia,Birds,292
+Ikara-Flinders Ranges,South Australia,Mammals,28
+Ikara-Flinders Ranges,South Australia,Reptiles,57
+Ikara-Flinders Ranges,South Australia,Amphibians,5
+Ikara-Flinders Ranges,South Australia,Fishes,2
+Ikara-Flinders Ranges,South Australia,Insects,320
+Stirling Range,Western Australia,All animals,505
+Stirling Range,Western Australia,Birds,239
+Stirling Range,Western Australia,Mammals,12
+Stirling Range,Western Australia,Reptiles,33
+Stirling Range,Western Australia,Amphibians,10
+Stirling Range,Western Australia,Fishes,0
+Stirling Range,Western Australia,Insects,152
+Cradle Mountain-Lake St Clair,Tasmania,All animals,539
+Cradle Mountain-Lake St Clair,Tasmania,Birds,104
+Cradle Mountain-Lake St Clair,Tasmania,Mammals,23
+Cradle Mountain-Lake St Clair,Tasmania,Reptiles,13
+Cradle Mountain-Lake St Clair,Tasmania,Amphibians,4
+Cradle Mountain-Lake St Clair,Tasmania,Fishes,2
+Cradle Mountain-Lake St Clair,Tasmania,Insects,337
+Kakadu,Northern Territory,All animals,385
+Kakadu,Northern Territory,Birds,263
+Kakadu,Northern Territory,Mammals,24
+Kakadu,Northern Territory,Reptiles,28
+Kakadu,Northern Territory,Amphibians,10
+Kakadu,Northern Territory,Fishes,1
+Kakadu,Northern Territory,Insects,57
+Namadgi,Australian Capital Territory,All animals,1208
+Namadgi,Australian Capital Territory,Birds,294
+Namadgi,Australian Capital Territory,Mammals,41
+Namadgi,Australian Capital Territory,Reptiles,40
+Namadgi,Australian Capital Territory,Amphibians,13
+Namadgi,Australian Capital Territory,Fishes,5
+Namadgi,Australian Capital Territory,Insects,767

@@ -104,7 +104,7 @@
           "as": "lat"
         },
         {
-          "calculate": "indexof(['CWTH_06', 'QLD_0017DAB001', 'VIC_3308', 'SA_0012', 'WA_30082', 'TAS_50238', 'ACT_39', 'NSW_N0030'], datum.pa_id) >= 0",
+          "calculate": "indexof(['CWTH_06', 'QLD_0017DAB001', 'VIC_3308', 'SA_0012', 'WA_01090', 'TAS_50238', 'ACT_39', 'NSW_N0030'], datum.pa_id) >= 0",
           "as": "featured"
         }
       ],
