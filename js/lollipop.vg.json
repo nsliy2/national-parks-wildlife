@@ -23,7 +23,7 @@
       "as": "Other animals"
     },
     {
-      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + datum.state + ')'",
+      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + {'New South Wales':'NSW','Victoria':'Vic','Queensland':'Qld','South Australia':'SA','Western Australia':'WA','Tasmania':'Tas','Northern Territory':'NT','Australian Capital Territory':'ACT'}[datum.state] + ')'",
       "as": "park_label"
     }
   ],
@@ -34,9 +34,10 @@
     "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
   },
   "title": {
-    "text": "TITLE: state the finding once the real numbers are in",
+    "text": "Royal, beside Sydney, has about 13 times more recorded species than Kakadu",
     "subtitle": [
-      "Animal species and subspecies recorded by ALA within 10 km of each featured park's centre point."
+      "Animal species and subspecies recorded by ALA within 10 km of each featured park's centre point.",
+      "Parks near cities get far more visitors recording sightings, so they look richer than remote parks."
     ],
     "anchor": "start",
     "fontSize": 18,
