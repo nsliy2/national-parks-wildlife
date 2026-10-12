@@ -1,9 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
+    "title": {
     "text": "797 national parks, from tiny islands to desert giants",
-    "subtitle": "Each circle is one mainland or Tasmanian national park, sized by area. The 8 parks this story follows are outlined and named.",
-    "anchor": "start"
+    "subtitle": [
+      "Each circle is one mainland or Tasmanian national park, sized by area.",
+      "The 8 parks this story follows are outlined and named."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
   },
   "width": "container",
   "height": 460,

@@ -1,9 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
-    "text": "Half of Australia's protected land is Indigenous Protected Areas",
-    "subtitle": ["National parks make up about a quarter. Each square is 1% of all protected land."],
-    "anchor": "start"
+    "title": {
+    "text": ["Half of Australia's protected land", "is Indigenous Protected Areas"],
+    "subtitle": ["National parks make up about a quarter.", "Each square is 1% of all protected land."],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
   },
   "width": 300,
   "height": 300,
@@ -46,7 +49,7 @@
       "title": "Type of protected land",
       "sort": {"field": "order"},
       "scale": {"range": ["#b5651d", "#2e7d32", "#81c784", "#d4b96a", "#c8c8c8"]},
-      "legend": {"orient": "right", "labelLimit": 300, "titleLimit": 300}
+      "legend": {"orient": "bottom", "columns": 2, "labelLimit": 260, "titleLimit": 260}
     },
     "tooltip": [
       {"field": "group", "type": "nominal", "title": "Type"},

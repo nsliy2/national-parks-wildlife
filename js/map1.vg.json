@@ -1,9 +1,12 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": {
+    "title": {
     "text": "Tasmania and the ACT protect the most land; Queensland the least",
-    "subtitle": "Share of each state's land inside protected areas, 2024",
-    "anchor": "start"
+    "subtitle": ["Share of each state's land inside protected areas, 2024"],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
   },
   "width": "container",
   "height": 420,
