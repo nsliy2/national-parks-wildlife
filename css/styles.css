@@ -1,32 +1,138 @@
-/* Your styles go here */
+/* ---------- Base ---------- */
 body {
-  background-color: lightgray;
+  background-color: #eef0eb;
+  margin: 0;
+  font-family: "Source Sans 3", Helvetica, Arial, sans-serif;
+  color: #222;
+  line-height: 1.55;
 }
 
 .page {
-  width: 850px;
-  margin: auto;
-  padding: 50px;
-  padding-top: 35px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 56px;
   background: white;
+  box-sizing: border-box;
 }
 
-.pure-g {
+/* ---------- Header ---------- */
+.kicker {
+  margin: 0;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2e7d32;
+}
+
+h1 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 2.8em;
+  line-height: 1.1;
+  margin: 6px 0 8px;
+}
+
+.subtitle {
+  font-size: 1.35em;
+  color: #444;
+  margin: 0 0 12px;
+}
+
+.byline {
+  font-size: 0.9em;
+  color: #777;
+  margin: 0 0 24px;
+}
+
+.intro {
+  font-size: 1.12em;
+  max-width: 720px;
+}
+
+.header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 28px;
   margin-bottom: 40px;
 }
 
-.description-left {
-  padding-right: 20px;
+/* ---------- Sections ---------- */
+section {
+  margin-bottom: 64px;
 }
 
-.description-right {
-  padding-left: 20px;
+h2 {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 1.7em;
+  margin: 0 0 8px;
 }
 
+h2 .num {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #2e7d32;
+  color: white;
+  text-align: center;
+  font-size: 0.75em;
+  vertical-align: middle;
+}
+
+h3 {
+  font-size: 1.15em;
+  margin: 0 0 8px;
+}
+
+.lead {
+  font-size: 1.05em;
+  color: #444;
+  max-width: 720px;
+  margin: 0 0 24px;
+}
+
+/* ---------- Charts ---------- */
 .vis-container {
   width: 100%;
+  margin-bottom: 40px;
 }
 
-.small-font {
-  font-size: 0.8em;
+.row-gap {
+  margin-top: 8px;
+}
+
+.side-text {
+  padding: 40px 0 0 32px;
+}
+
+/* ---------- Conclusion + footer ---------- */
+.conclusion p {
+  font-size: 1.1em;
+  max-width: 720px;
+}
+
+.footer {
+  border-top: 1px solid #ddd;
+  padding-top: 24px;
+  font-size: 0.85em;
+  color: #555;
+}
+
+.footer ul {
+  padding-left: 18px;
+}
+
+.footer a {
+  color: #2e7d32;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 768px) {
+  .page {
+    padding: 24px 16px;
+  }
+  .side-text {
+    padding: 0;
+  }
 }
