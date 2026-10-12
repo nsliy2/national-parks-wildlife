@@ -1,0 +1,180 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/speciesbypark.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "species_count": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "pivot": "animal_group",
+      "value": "species_count",
+      "groupby": [
+        "park",
+        "state"
+      ]
+    },
+    {
+      "calculate": "datum['All animals'] - (datum.Birds + datum.Mammals + datum.Reptiles + datum.Amphibians + datum.Fishes + datum.Insects)",
+      "as": "Other animals"
+    },
+    {
+      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + {'New South Wales':'NSW','Victoria':'Vic','Queensland':'Qld','South Australia':'SA','Western Australia':'WA','Tasmania':'Tas','Northern Territory':'NT','Australian Capital Territory':'ACT'}[datum.state] + ')'",
+      "as": "park_label"
+    },
+    {
+      "fold": [
+        "Birds",
+        "Mammals",
+        "Reptiles",
+        "Amphibians",
+        "Fishes",
+        "Insects",
+        "Other animals"
+      ],
+      "as": [
+        "group",
+        "count"
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "count",
+          "as": "park_total"
+        }
+      ],
+      "groupby": [
+        "park_label"
+      ]
+    },
+    {
+      "calculate": "datum.count / datum.park_total",
+      "as": "share"
+    },
+    {
+      "calculate": "indexof(['Birds','Mammals','Reptiles','Amphibians','Fishes','Insects','Other animals'], datum.group)",
+      "as": "group_order"
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
+  },
+  "title": {
+    "text": "Insects make up the biggest share in most parks; Kakadu's records are mostly birds",
+    "subtitle": [
+      "Share of each featured park's recorded animal species that belong to each group.",
+      "Remote parks have fewer insect records, which likely reflects fewer people looking, not fewer insects."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": {
+    "step": 34
+  },
+  "mark": {
+    "type": "bar",
+    "stroke": "white",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "y": {
+      "field": "park_label",
+      "type": "nominal",
+      "sort": {
+        "field": "All animals",
+        "op": "max",
+        "order": "descending"
+      },
+      "axis": {
+        "labelFontSize": 12,
+        "labelLimit": 320,
+        "domain": false,
+        "ticks": false
+      },
+      "title": null
+    },
+    "x": {
+      "field": "count",
+      "type": "quantitative",
+      "stack": "normalize",
+      "title": "Share of species by animal group",
+      "axis": {
+        "format": "%",
+        "titleFontSize": 12,
+        "grid": false
+      }
+    },
+    "color": {
+      "field": "group",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "Birds",
+          "Mammals",
+          "Reptiles",
+          "Amphibians",
+          "Fishes",
+          "Insects",
+          "Other animals"
+        ],
+        "range": [
+          "#1f78b4",
+          "#e31a1c",
+          "#33a02c",
+          "#6a3d9a",
+          "#a6cee3",
+          "#ff7f00",
+          "#cccccc"
+        ]
+      },
+      "legend": {
+        "title": "Animal group",
+        "orient": "bottom",
+        "direction": "horizontal",
+        "columns": 4,
+        "symbolType": "square",
+        "labelFontSize": 11,
+        "titleFontSize": 12,
+        "titleLimit": 300
+      }
+    },
+    "order": {
+      "field": "group_order",
+      "type": "quantitative"
+    },
+    "tooltip": [
+      {
+        "field": "park_label",
+        "title": "Park"
+      },
+      {
+        "field": "group",
+        "title": "Animal group"
+      },
+      {
+        "field": "count",
+        "type": "quantitative",
+        "title": "Species",
+        "format": ","
+      },
+      {
+        "field": "share",
+        "type": "quantitative",
+        "title": "Share of park's species",
+        "format": ".0%"
+      }
+    ]
+  }
+}
