@@ -1,0 +1,24 @@
+park,state,status,species_count,total_animals
+Royal,NSW,Critically Endangered,4,4683
+Royal,NSW,Endangered,15,4683
+Royal,NSW,Vulnerable,18,4683
+Wilsons Promontory,Vic,Critically Endangered,3,1950
+Wilsons Promontory,Vic,Endangered,11,1950
+Wilsons Promontory,Vic,Vulnerable,13,1950
+Daintree,Qld,Critically Endangered,5,1149
+Daintree,Qld,Endangered,10,1149
+Daintree,Qld,Vulnerable,5,1149
+Ikara-Flinders Ranges,SA,Endangered,2,653
+Ikara-Flinders Ranges,SA,Vulnerable,8,653
+Stirling Range,WA,Critically Endangered,1,428
+Stirling Range,WA,Endangered,4,428
+Stirling Range,WA,Vulnerable,3,428
+Cradle Mountain,Tas,Critically Endangered,1,499
+Cradle Mountain,Tas,Endangered,6,499
+Cradle Mountain,Tas,Vulnerable,4,499
+Kakadu,NT,Critically Endangered,1,331
+Kakadu,NT,Endangered,7,331
+Kakadu,NT,Vulnerable,7,331
+Namadgi,ACT,Critically Endangered,2,1096
+Namadgi,ACT,Endangered,6,1096
+Namadgi,ACT,Vulnerable,9,1096
