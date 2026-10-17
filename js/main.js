@@ -7,3 +7,4 @@ vegaEmbed('#lollipop', 'js/lollipop.vg.json', { actions: false });
 vegaEmbed('#stacked', 'js/stacked.vg.json', { actions: false });
 vegaEmbed('#binmap', 'js/binmap.vg.json', { actions: false });
 vegaEmbed('#jitter', 'js/jitter.vg.json', { actions: false });
+vegaEmbed('#slope', 'js/slope.vg.json', { actions: false });

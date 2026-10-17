@@ -1,0 +1,309 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "The park with the fewest recorded species has the highest share under threat",
+    "subtitle": [
+      "Each line is one featured park. Left: ranked by animal species recorded within 10 km.",
+      "Right: ranked by the share of those species that are threatened (land and freshwater, EPBC Act)."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": 380,
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/threatened_by_park.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "species_count": "number",
+        "total_animals": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "species_count",
+          "as": "threatened"
+        }
+      ],
+      "groupby": [
+        "park",
+        "state",
+        "total_animals"
+      ]
+    },
+    {
+      "calculate": "datum.threatened / datum.total_animals",
+      "as": "share"
+    },
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "rank_total"
+        }
+      ],
+      "sort": [
+        {
+          "field": "total_animals",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "rank_share"
+        }
+      ],
+      "sort": [
+        {
+          "field": "share",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.park == 'Kakadu' ? 'rise' : datum.park == 'Royal' ? 'fall' : 'other'",
+      "as": "highlight"
+    },
+    {
+      "fold": [
+        "rank_total",
+        "rank_share"
+      ],
+      "as": [
+        "measure",
+        "rank"
+      ]
+    },
+    {
+      "calculate": "datum.measure == 'rank_total' ? 0 : 1",
+      "as": "side"
+    },
+    {
+      "calculate": "datum.side == 0 ? datum.park + '  ' + format(datum.total_animals, ',') + ' species' : datum.park + '  ' + format(datum.share, '.1%')",
+      "as": "label"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "side",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          -0.75,
+          1.75
+        ]
+      },
+      "axis": null
+    },
+    "y": {
+      "field": "rank",
+      "type": "quantitative",
+      "scale": {
+        "domain": [
+          0.3,
+          8.5
+        ],
+        "reverse": true
+      },
+      "axis": null
+    },
+    "color": {
+      "field": "highlight",
+      "type": "nominal",
+      "scale": {
+        "domain": [
+          "rise",
+          "fall",
+          "other"
+        ],
+        "range": [
+          "#c0392b",
+          "#2e7d32",
+          "#b8b8b8"
+        ]
+      },
+      "legend": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "detail": {
+          "field": "park"
+        },
+        "strokeWidth": {
+          "condition": {
+            "test": "datum.highlight != 'other'",
+            "value": 3.5
+          },
+          "value": 1.5
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 90,
+        "opacity": 1
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "park",
+            "title": "Park"
+          },
+          {
+            "field": "state",
+            "title": "State"
+          },
+          {
+            "field": "total_animals",
+            "type": "quantitative",
+            "title": "Animal species recorded",
+            "format": ","
+          },
+          {
+            "field": "threatened",
+            "type": "quantitative",
+            "title": "Threatened species"
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share threatened",
+            "format": ".1%"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.side == 0"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -12,
+        "fontSize": 12
+      },
+      "encoding": {
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.highlight == 'other'",
+            "value": "#666"
+          },
+          "field": "highlight",
+          "type": "nominal",
+          "legend": null
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.side == 1"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "fontSize": 12
+      },
+      "encoding": {
+        "text": {
+          "field": "label"
+        },
+        "color": {
+          "condition": {
+            "test": "datum.highlight == 'other'",
+            "value": "#666"
+          },
+          "field": "highlight",
+          "type": "nominal",
+          "legend": null
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "side": 0,
+            "rank": 0.35,
+            "t": "Ranked by species recorded"
+          },
+          {
+            "side": 1,
+            "rank": 0.35,
+            "t": "Ranked by % threatened"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#333"
+      },
+      "encoding": {
+        "text": {
+          "field": "t"
+        },
+        "color": {
+          "value": "#333"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "side": 0.5,
+            "rank": 8.45,
+            "t": "Kakadu jumps from last to first; Royal drops from first to last"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "fontSize": 12,
+        "fontStyle": "italic",
+        "color": "#555"
+      },
+      "encoding": {
+        "text": {
+          "field": "t"
+        },
+        "color": {
+          "value": "#555"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
+  }
+}
