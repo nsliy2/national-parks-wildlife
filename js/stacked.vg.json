@@ -23,7 +23,7 @@
       "as": "Other animals"
     },
     {
-      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + {'New South Wales':'NSW','Victoria':'Vic','Queensland':'Qld','South Australia':'SA','Western Australia':'WA','Tasmania':'Tas','Northern Territory':'NT','Australian Capital Territory':'ACT'}[datum.state] + ')'",
+      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + datum.state + ')'",
       "as": "park_label"
     },
     {
@@ -60,7 +60,14 @@
     {
       "calculate": "indexof(['Birds','Mammals','Reptiles','Amphibians','Fishes','Insects','Other animals'], datum.group)",
       "as": "group_order"
-    }
+    },
+    {
+      "window": [{"op": "sum", "field": "share", "as": "cum"}],
+      "sort": [{"field": "group_order"}],
+      "groupby": ["park_label"],
+      "frame": [null, 0]
+    },
+    {"calculate": "datum.cum - datum.share / 2", "as": "mid"}
   ],
   "config": {
     "view": {
@@ -83,11 +90,6 @@
   "height": {
     "step": 34
   },
-  "mark": {
-    "type": "bar",
-    "stroke": "white",
-    "strokeWidth": 0.5
-  },
   "encoding": {
     "y": {
       "field": "park_label",
@@ -104,7 +106,16 @@
         "ticks": false
       },
       "title": null
-    },
+    }
+  },
+  "layer": [
+  {
+  "mark": {
+    "type": "bar",
+    "stroke": "white",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
     "x": {
       "field": "count",
       "type": "quantitative",
@@ -131,12 +142,12 @@
         ],
         "range": [
           "#1f78b4",
-          "#e31a1c",
-          "#33a02c",
-          "#6a3d9a",
+          "#c9a27e",
+          "#9bbf85",
+          "#b4a7d6",
           "#a6cee3",
           "#ff7f00",
-          "#cccccc"
+          "#dddddd"
         ]
       },
       "legend": {
@@ -177,4 +188,14 @@
       }
     ]
   }
+  },
+  {
+    "transform": [{"filter": "(datum.group == 'Birds' || datum.group == 'Insects') && datum.share >= 0.12"}],
+    "mark": {"type": "text", "fontSize": 11, "fontWeight": "bold", "color": "white"},
+    "encoding": {
+      "x": {"field": "mid", "type": "quantitative"},
+      "text": {"field": "share", "type": "quantitative", "format": ".0%"}
+    }
+  }
+  ]
 }
