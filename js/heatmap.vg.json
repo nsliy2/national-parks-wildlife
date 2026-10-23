@@ -4,7 +4,7 @@
     "text": "Birds and mammals top the threatened list",
     "subtitle": [
       "Australian animal species and subspecies in each EPBC Act category.",
-      "39 mammals are already extinct, more than all other groups combined."
+      "'Other animals' are invertebrates, such as snails, insects, spiders and crayfish."
     ],
     "anchor": "start",
     "fontSize": 18,
@@ -177,6 +177,15 @@
           },
           "value": "#222"
         }
+      }
+    },
+    {
+      "data": {"values": [{"t": ["Outlined: 39 mammals are already extinct,", "more than all other groups combined (28)"]}]},
+      "mark": {"type": "text", "align": "right", "baseline": "top", "fontSize": 12, "fontWeight": "bold", "color": "#a50f15", "lineHeight": 15},
+      "encoding": {
+        "x": {"value": {"expr": "width"}},
+        "y": {"value": {"expr": "height + 72"}},
+        "text": {"field": "t"}
       }
     }
   ],
