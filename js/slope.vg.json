@@ -3,8 +3,9 @@
   "title": {
     "text": "The park with the fewest recorded species has the highest share under threat",
     "subtitle": [
-      "Each line is one featured park. Left: ranked by animal species recorded within 10 km.",
-      "Right: ranked by the share of those species that are threatened (land and freshwater, EPBC Act)."
+      "Each line is one featured park. Left: animal species on the park's Atlas of Living Australia species list (within 10 km).",
+      "Right: share of those species that are threatened under the EPBC Act (land and freshwater species).",
+      "Totals count species only, so they are a little lower than the chart above, which also counts subspecies."
     ],
     "anchor": "start",
     "fontSize": 18,
@@ -128,7 +129,7 @@
         ],
         "range": [
           "#c0392b",
-          "#2e7d32",
+          "#1f5f8b",
           "#b8b8b8"
         ]
       },
