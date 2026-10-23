@@ -71,6 +71,7 @@
       "title": "Animal species recorded",
       "axis": {
         "format": ",d",
+        "values": [0, 1000, 2000, 3000, 4000, 5000],
         "grid": true,
         "gridColor": "#eee",
         "titleFontSize": 12
