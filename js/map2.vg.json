@@ -151,10 +151,8 @@
               "type": "quantitative",
               "title": "Park area",
               "scale": {
-                "range": [
-                  4,
-                  1500
-                ]
+                "domain": [0, 3700000],
+                "range": [4, 1500]
               },
               "legend": {
                 "values": [
@@ -247,6 +245,7 @@
         {"lon": 137.29, "lat": -26.79, "lon2": 130.5, "lat2": -35.6},
         {"lon": 151.3, "lat": -23.5, "lon2": 155.2, "lat2": -23.5}
       ]},
+      "transform": [{"filter": "year_shown >= 2024"}],
       "mark": {"type": "rule", "color": "#333", "strokeWidth": 1},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
@@ -257,6 +256,7 @@
     },
     {
       "data": {"values": [{"lon": 130.5, "lat": -35.6, "t": ["Largest: Munga-Thirri–Simpson Desert,", "3.6 million hectares"]}]},
+      "transform": [{"filter": "year_shown >= 2024"}],
       "mark": {"type": "text", "baseline": "top", "align": "center", "dy": 3, "fontSize": 11, "color": "#333", "lineHeight": 14},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
@@ -265,12 +265,32 @@
       }
     },
     {
-      "data": {"values": [{"lon": 155.4, "lat": -23.5, "t": ["212 of Queensland's 320", "parks are under 10,000 hectares,", "many of them islands"]}]},
+      "data": {"values": [{"lon": 155.4, "lat": -23.5, "t": ["212 of Queensland's 320", "parks are under 10,000 hectares,", "including about 40 islands"]}]},
+      "transform": [{"filter": "year_shown >= 2024"}],
       "mark": {"type": "text", "baseline": "middle", "align": "left", "fontSize": 11, "color": "#333", "lineHeight": 14},
       "encoding": {
         "longitude": {"field": "lon", "type": "quantitative"},
         "latitude": {"field": "lat", "type": "quantitative"},
         "text": {"field": "t"}
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/national_parks.csv"
+      },
+      "transform": [
+        {"filter": "datum.state != 'EXT'"},
+        {"calculate": "toNumber(substring(datum.date_declared, 0, 4))", "as": "year"},
+        {"aggregate": [{"op": "min", "field": "year", "as": "year_declared"}], "groupby": ["pa_id"]},
+        {"filter": "datum.year_declared <= year_shown"},
+        {"aggregate": [{"op": "count", "as": "n"}]},
+        {"calculate": "format(datum.n, ',') + ' national parks by ' + year_shown", "as": "line1"}
+      ],
+      "mark": {"type": "text", "align": "right", "fontSize": 15, "fontWeight": "bold", "color": "#2e7d32"},
+      "encoding": {
+        "x": {"value": {"expr": "width - 16"}},
+        "y": {"value": 26},
+        "text": {"field": "line1"}
       }
     }
   ],
