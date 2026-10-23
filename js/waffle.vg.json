@@ -39,6 +39,8 @@
     {"calculate": "datum.square_id % 10", "as": "column"},
     {"calculate": "floor(datum.square_id / 10)", "as": "row"}
   ],
+  "layer": [
+  {
   "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
   "encoding": {
     "x": {"field": "column", "type": "ordinal", "axis": null},
@@ -49,14 +51,32 @@
       "title": "Type of protected land",
       "sort": {"field": "order"},
       "scale": {"range": ["#b5651d", "#2e7d32", "#81c784", "#d4b96a", "#c8c8c8"]},
-      "legend": {"orient": "bottom", "columns": 2, "labelLimit": 260, "titleLimit": 260}
+      "legend": {"orient": "bottom", "columns": 2, "symbolType": "square", "labelLimit": 260, "titleLimit": 260}
     },
     "tooltip": [
       {"field": "group", "type": "nominal", "title": "Type"},
       {"field": "squares", "type": "quantitative", "title": "Share of protected land (%)"},
       {"field": "area", "type": "quantitative", "title": "Area (hectares)", "format": ",.0f"}
     ]
+  }
   },
+  {
+    "data": {"values": [
+      {"y": 75, "t": "Indigenous Protected Areas: 50%", "c": "#b5651d"},
+      {"y": 165, "t": "National parks: 24%", "c": "#2e7d32"}
+    ]},
+    "encoding": {
+      "x": {"value": 150},
+      "y": {"field": "y", "type": "quantitative", "scale": null},
+      "text": {"field": "t"}
+    },
+    "layer": [
+      {"mark": {"type": "text", "fontSize": 13, "fontWeight": "bold", "strokeWidth": 8, "strokeJoin": "round"},
+       "encoding": {"stroke": {"field": "c", "type": "nominal", "scale": null}, "color": {"field": "c", "type": "nominal", "scale": null}}},
+      {"mark": {"type": "text", "fontSize": 13, "fontWeight": "bold", "color": "white"}}
+    ]
+  }
+  ],
     "config": {
     "view": {"stroke": null},
     "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
