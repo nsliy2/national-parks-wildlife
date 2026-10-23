@@ -3,8 +3,8 @@
   "title": {
     "text": "Most threatened-animal sightings fall outside the featured parks",
     "subtitle": [
-      "Australia is cut into equal squares of half a degree (about 50 km); empty squares had no sightings since 2020.",
-      "Only 7% of all sightings are within 50 km of the featured park. Pick an animal below; its park is circled."
+      "Australia is cut into equal squares of half a degree (roughly 40–55 km across); empty squares had no sightings since 2020.",
+      "Only 7% of all sightings are within 50 km of the featured park's centre point. Pick an animal from the menu below the map; its park is circled."
     ],
     "anchor": "start",
     "fontSize": 18,
@@ -165,8 +165,8 @@
       "mark": {
         "type": "geoshape",
         "filled": false,
-        "stroke": "#cfc8b8",
-        "strokeWidth": 0.4,
+        "stroke": "#ddd6c6",
+        "strokeWidth": 0.3,
         "clip": true
       }
     },
@@ -400,7 +400,53 @@
             "dy": -12,
             "fontSize": 13,
             "fontWeight": "bold",
+            "color": "white",
+            "stroke": "white",
+            "strokeWidth": 4
+          },
+          "encoding": {
+            "text": {
+              "field": "park"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "(pick_animal == 'All 8 animals' || datum.animal == pick_animal) && datum.park != 'Namadgi'"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 16,
+            "dy": -12,
+            "fontSize": 13,
+            "fontWeight": "bold",
             "color": "#111"
+          },
+          "encoding": {
+            "text": {
+              "field": "park"
+            }
+          }
+        },
+        {
+          "transform": [
+            {
+              "filter": "(pick_animal == 'All 8 animals' || datum.animal == pick_animal) && datum.park == 'Namadgi'"
+            }
+          ],
+          "mark": {
+            "type": "text",
+            "align": "right",
+            "dx": -16,
+            "dy": 14,
+            "fontSize": 13,
+            "fontWeight": "bold",
+            "color": "white",
+            "stroke": "white",
+            "strokeWidth": 4
           },
           "encoding": {
             "text": {
