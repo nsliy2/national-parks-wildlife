@@ -51,7 +51,7 @@
       "title": "Type of protected land",
       "sort": {"field": "order"},
       "scale": {"range": ["#b5651d", "#2e7d32", "#81c784", "#d4b96a", "#c8c8c8"]},
-      "legend": {"orient": "bottom", "columns": 2, "symbolType": "square", "labelLimit": 260, "titleLimit": 260}
+      "legend": null
     },
     "tooltip": [
       {"field": "group", "type": "nominal", "title": "Type"},
