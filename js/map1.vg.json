@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": {
-    "text": "Tasmania and the ACT protect the most land; Queensland the least",
-    "subtitle": ["Share of each state's land inside protected areas, 2024"],
+    "text": "Tasmania and the Australian Capital Territory protect the most land; Queensland the least",
+    "subtitle": ["Share of each state's land inside protected areas, 2024. Australia overall: 22.6%."],
     "anchor": "start",
     "fontSize": 18,
     "subtitleFontSize": 13,
@@ -10,7 +10,7 @@
   },
   "width": "container",
   "height": 420,
-  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-132, 0]},
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-132, 0], "center": [2, -27.5], "scale": {"expr": "min(width * 1.05, height * 1.75) * 0.82"}},
   "layer": [
     {
       "data": {"values": [{}]},
@@ -33,20 +33,20 @@
             "key": "state",
             "fields": ["percent_protected", "protected_area_count"]
           }
-        }
+        },
+        {"calculate": "datum.percent_protected < 10 ? 'Under 10%' : datum.percent_protected < 20 ? '10–19%' : datum.percent_protected < 30 ? '20–29%' : datum.percent_protected < 40 ? '30–39%' : '40% or more'", "as": "band"}
       ],
       "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 1},
       "encoding": {
         "color": {
-          "field": "percent_protected",
-          "type": "quantitative",
-          "title": "Land protected (%)",
+          "field": "band",
+          "type": "ordinal",
+          "title": "% of state's land protected",
           "scale": {
-            "type": "threshold",
-            "domain": [10, 20, 30, 40],
+            "domain": ["Under 10%", "10–19%", "20–29%", "30–39%", "40% or more"],
             "range": ["#edf8e9", "#bae4b3", "#74c476", "#31a354", "#006d2c"]
           },
-          "legend": {"orient": "right"}
+          "legend": {"orient": "top-left", "offset": 14, "symbolType": "square", "symbolSize": 180, "symbolStrokeColor": "#bbb", "titleLimit": 300, "labelFontSize": 11, "titleFontSize": 12, "fillColor": "rgba(255,255,255,0.85)", "padding": 8}
         },
         "tooltip": [
           {"field": "properties.STE_NAME26", "type": "nominal", "title": "State"},
@@ -54,9 +54,64 @@
           {"field": "protected_area_count", "type": "quantitative", "title": "Number of protected areas", "format": ","}
         ]
       }
+    },
+    {
+      "data": {"values": [
+        {"lon": 122.0, "lat": -26.0, "label": ["Western Australia", "31%"], "pct": 31.1},
+        {"lon": 133.4, "lat": -19.5, "label": ["Northern Territory", "25%"], "pct": 24.6},
+        {"lon": 135.0, "lat": -30.0, "label": ["South Australia", "30%"], "pct": 30.4},
+        {"lon": 144.5, "lat": -23.0, "label": ["Queensland", "9%"], "pct": 9.4},
+        {"lon": 146.0, "lat": -32.3, "label": ["New South Wales", "10%"], "pct": 10.4},
+        {"lon": 143.8, "lat": -36.9, "label": ["Victoria", "18%"], "pct": 17.7}
+      ]},
+      "mark": {"type": "text", "fontSize": 12, "fontWeight": "bold", "lineHeight": 14},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "label"},
+        "color": {"condition": {"test": "datum.pct >= 30", "value": "white"}, "value": "#1b3a1d"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"lon": 149.1, "lat": -35.5, "lon2": 155.5, "lat2": -35.5},
+        {"lon": 147.6, "lat": -41.6, "lon2": 151.0, "lat2": -41.6}
+      ]},
+      "mark": {"type": "rule", "color": "#333", "strokeWidth": 1},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"lon": 155.8, "lat": -35.5, "line1": "Australian Capital Territory 56%", "line2": "Namadgi National Park is almost half of it"},
+        {"lon": 151.3, "lat": -41.6, "line1": "Tasmania 43%", "line2": "World Heritage wilderness in the west"}
+      ]},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"}
+      },
+      "layer": [
+        {"mark": {"type": "text", "align": "left", "baseline": "bottom", "dy": -1, "fontSize": 12, "fontWeight": "bold", "color": "#1b3a1d"},
+         "encoding": {"text": {"field": "line1"}}},
+        {"mark": {"type": "text", "align": "left", "baseline": "top", "dy": 2, "fontSize": 11, "color": "#444"},
+         "encoding": {"text": {"field": "line2"}}}
+      ]
+    },
+    {
+      "data": {"values": [{"lon": 150.5, "lat": -17.5, "t": ["Queensland protects the least:", "fewer than 1 in 10 hectares"]}]},
+      "mark": {"type": "text", "align": "left", "fontSize": 11, "fontStyle": "italic", "color": "#444", "lineHeight": 14},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "text": {"field": "t"}
+      }
     }
   ],
-    "config": {
+  "config": {
     "view": {"stroke": null},
     "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
   }
