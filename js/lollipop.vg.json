@@ -23,7 +23,7 @@
       "as": "Other animals"
     },
     {
-      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + {'New South Wales':'NSW','Victoria':'Vic','Queensland':'Qld','South Australia':'SA','Western Australia':'WA','Tasmania':'Tas','Northern Territory':'NT','Australian Capital Territory':'ACT'}[datum.state] + ')'",
+      "calculate": "(datum.park == 'Cradle Mountain-Lake St Clair' ? 'Cradle Mountain' : datum.park) + ' (' + datum.state + ')'",
       "as": "park_label"
     }
   ],
@@ -36,7 +36,7 @@
   "title": {
     "text": "Royal, beside Sydney, has about 13 times more recorded species than Kakadu",
     "subtitle": [
-      "Animal species and subspecies recorded by ALA within 10 km of each featured park's centre point.",
+      "Animal species and subspecies recorded in the Atlas of Living Australia within 10 km of each featured park's centre point.",
       "Parks near cities get far more visitors recording sightings, so they look richer than remote parks."
     ],
     "anchor": "start",
@@ -129,6 +129,15 @@
           "type": "quantitative",
           "format": ","
         }
+      }
+    },
+    {
+      "data": {"values": [{"x": 4850, "y": "Wilsons Promontory (Victoria)", "t": "Royal is next to Sydney: more visitors, more records"}]},
+      "mark": {"type": "text", "align": "right", "fontSize": 11.5, "fontStyle": "italic", "color": "#444"},
+      "encoding": {
+        "x": {"field": "x", "type": "quantitative"},
+        "y": {"field": "y", "type": "nominal"},
+        "text": {"field": "t"}
       }
     }
   ]
