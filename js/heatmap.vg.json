@@ -4,7 +4,7 @@
     "text": "Birds and mammals top the threatened list",
     "subtitle": [
       "Australian animal species and subspecies in each EPBC Act category.",
-      "'Other animals' are invertebrates, such as snails, insects, spiders and crayfish."
+      "'Amphibians' are all frogs. 'Other animals' are invertebrates, such as snails, insects, spiders and crayfish."
     ],
     "anchor": "start",
     "fontSize": 18,
@@ -23,6 +23,10 @@
     }
   },
   "transform": [
+    {
+      "calculate": "datum.animal_group == 'Frogs' ? 'Amphibians' : datum.animal_group",
+      "as": "animal_group"
+    },
     {
       "impute": "species_count",
       "key": "status",
@@ -78,7 +82,7 @@
         "Other animals",
         "Reptiles",
         "Fishes",
-        "Frogs"
+        "Amphibians"
       ],
       "title": null,
       "axis": {
