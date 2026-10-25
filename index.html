@@ -44,8 +44,17 @@
       </div>
     </header>
 
+    <!-- ===== STORY NAVIGATION (scrolls within this page) ===== -->
+    <nav class="story-nav" aria-label="Story sections">
+      <a href="#land"><span>1</span> Protected land</a>
+      <a href="#parks"><span>2</span> The parks</a>
+      <a href="#wildlife"><span>3</span> Wildlife</a>
+      <a href="#threatened"><span>4</span> Threatened animals</a>
+      <a href="#conclusion">What this means</a>
+    </nav>
+
     <!-- ===== SECTION 1: protected land ===== -->
-    <section>
+    <section id="land">
       <h2><span class="num">1</span>How much land is protected?</h2>
       <p>A protected area is land set aside mainly to conserve nature. Australia has committed to protecting 30% of
         its land by 2030, so how much is protected today, and where, is a useful starting point. The map below shows
@@ -61,6 +70,7 @@
       <p>Part of the gap comes down to size and land use. The Australian Capital Territory is small and its
         protected land sits right next to Canberra, while Queensland and New South Wales are huge and much of their land
         is used for farming and grazing. Every hectare protected there has to compete with other uses.</p>
+      <h3 class="sub">Where is the protected land?</h3>
       <p>Percentages treat every state equally, but the states are very different sizes. The next chart compares
         each state's share of Australia's land with its share of all the protected land in the country. If protection
         were spread evenly, the two dots for each state would sit on top of each other.</p>
@@ -77,6 +87,7 @@
         But state borders are drawn by people, not by nature. To see which kinds of landscape are protected, we need
         to look at natural regions instead.</p>
 
+      <h3 class="sub">Protection by natural region</h3>
       <p>Scientists divide Australia into 89 bioregions: areas with a similar climate, landforms, plants and animals,
         such as the Wet Tropics or the Nullarbor. The map shows the 85 on the mainland and in Tasmania. Because each bioregion holds its own mix of wildlife, protecting a
         share of every region matters more than protecting a lot of land in just a few. The map uses the same shades
@@ -95,6 +106,7 @@
         deserts are easier to protect. Reaching the 30% target in a meaningful way means protecting more of the regions that are
         currently left out.</p>
 
+      <h3 class="sub">What kind of protection?</h3>
       <p>A high share of protected land does not tell us what kind of protection it is. "Protected area" covers many
         types of land, managed by very different people, and national parks are only one of them.</p>
 
@@ -134,7 +146,7 @@
     </section>
 
     <!-- ===== SECTION 2: the parks ===== -->
-    <section>
+    <section id="parks">
       <h2><span class="num">2</span>Where are the national parks?</h2>
       <p>Even if national parks are only a quarter of protected land, they are the places most Australians know and
         visit. There are 797 of them on the mainland and in Tasmania, but they are far from equal: some are small
@@ -175,6 +187,7 @@
         </div>
       </div>
 
+      <h3 class="sub">Many parks, but how big are they?</h3>
       <p>Counting parks can be misleading, because a state with many parks may still have little land in them. The
         next chart places every park on one line per state, from smallest on the left to largest on the right.</p>
       <p class="how-to"><strong>How to read it:</strong> each dot is one park and the black line marks the state's
@@ -194,7 +207,7 @@
     </section>
 
     <!-- ===== SECTION 3: wildlife in the featured parks ===== -->
-    <section>
+    <section id="wildlife">
       <h2><span class="num">3</span>Which parks hold the most wildlife?</h2>
       <p>Size is only part of the picture. To see what lives in each featured park, this section uses the Atlas of
         Living Australia, an online database of animal and plant sightings recorded by scientists, government surveys
@@ -212,6 +225,7 @@
         Australia's largest city, while Kakadu is a few hours from Darwin and much of it is hard to reach. Species
         counts are therefore best read as "what has been recorded", and comparisons between city and remote parks
         need care.</p>
+      <h3 class="sub">Which animals are recorded?</h3>
       <p>The type of animal recorded also differs from park to park. The next chart splits each park's species into
         animal groups, with every bar stretched to 100% so that parks with very different totals can be compared.</p>
       <div id="stacked" class="vis-container"></div>
@@ -225,6 +239,7 @@
         the time to record them. Kakadu's bird-heavy list suggests its insects have simply been recorded less, the same
         observer bias seen above, rather than that it has fewer of them.</p>
 
+      <h3 class="sub">Where are species most at risk?</h3>
       <p>A park with many species is not necessarily the most important one for animals at risk. The next chart ranks
         the eight parks twice: on the left by how many species were recorded, and on the right by the share of those
         species that are threatened. Each line joins the same park's two ranks, so a steep line means the park's
@@ -246,7 +261,7 @@
     </section>
 
     <!-- ===== SECTION 4: threatened animals ===== -->
-    <section>
+    <section id="threatened">
       <h2><span class="num">4</span>Are threatened animals protected?</h2>
       <p>Australia's national environment law, the <em>Environment Protection and Biodiversity Conservation Act
           1999</em> (EPBC Act), keeps an official list of species at risk. Each species is placed in a category, from
@@ -268,6 +283,7 @@
         introduced cats and foxes and by land clearing. Many of the species still listed face the same threats. That
         raises the final question: are threatened animals living inside the parks that are meant to protect them?</p>
 
+      <h3 class="sub">Are threatened animals found in the parks?</h3>
       <p>The final question is where threatened animals are actually seen. For each featured park, one threatened
         animal that the park is known for was chosen, and all of its recent sightings were mapped across Australia.
         If national parks were protecting these animals well, most sightings would cluster around the parks.</p>
@@ -292,7 +308,7 @@
     </section>
 
     <!-- ===== CONCLUSION ===== -->
-    <section class="conclusion">
+    <section id="conclusion" class="conclusion">
       <h2>What this means</h2>
       <p>So, do Australia's national parks protect its wildlife? Partly. They protect important strongholds, such as
         the Daintree for the Southern Cassowary, and remote parks like Kakadu hold a high share of threatened species
