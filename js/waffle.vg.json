@@ -62,18 +62,23 @@
   },
   {
     "data": {"values": [
-      {"y": 75, "t": "Indigenous Protected Areas: 50%", "c": "#b5651d"},
-      {"y": 165, "t": "National parks: 24%", "c": "#2e7d32"}
+      {"x": 150, "y": 75, "t": "Indigenous Protected Areas: 50%", "c": "#b5651d", "tc": "white", "fs": 13},
+      {"x": 150, "y": 165, "t": "National parks: 24%", "c": "#2e7d32", "tc": "white", "fs": 13},
+      {"x": 210, "y": 225, "t": "Nature reserves: 6%", "c": "#81c784", "tc": "#1b3a1d", "fs": 11},
+      {"x": 90, "y": 255, "t": "Private land: 6%", "c": "#d4b96a", "tc": "#3e2f0b", "fs": 11},
+      {"x": 150, "y": 285, "t": "Other reserves: 14%", "c": "#c8c8c8", "tc": "#333333", "fs": 11}
     ]},
     "encoding": {
-      "x": {"value": 150},
+      "x": {"field": "x", "type": "quantitative", "scale": null},
       "y": {"field": "y", "type": "quantitative", "scale": null},
-      "text": {"field": "t"}
+      "text": {"field": "t"},
+      "size": {"field": "fs", "type": "quantitative", "scale": null, "legend": null}
     },
     "layer": [
-      {"mark": {"type": "text", "fontSize": 13, "fontWeight": "bold", "strokeWidth": 8, "strokeJoin": "round"},
+      {"mark": {"type": "text", "fontWeight": "bold", "strokeWidth": 8, "strokeJoin": "round"},
        "encoding": {"stroke": {"field": "c", "type": "nominal", "scale": null}, "color": {"field": "c", "type": "nominal", "scale": null}}},
-      {"mark": {"type": "text", "fontSize": 13, "fontWeight": "bold", "color": "white"}}
+      {"mark": {"type": "text", "fontWeight": "bold"},
+       "encoding": {"color": {"field": "tc", "type": "nominal", "scale": null}}}
     ]
   }
   ],
