@@ -262,3 +262,26 @@ section p,
   color: #555;
   font-style: italic;
 }
+
+/* headline numbers under the title */
+.stats {
+  margin-top: 28px;
+}
+
+.stat {
+  margin: 0;
+  padding: 0 16px 0 12px;
+  border-left: 3px solid #2e7d32;
+  font-size: 0.9em;
+  color: #444;
+  line-height: 1.4;
+}
+
+.stat-num {
+  display: block;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 2em;
+  font-weight: 700;
+  color: #1b3a1d;
+  line-height: 1.2;
+}
