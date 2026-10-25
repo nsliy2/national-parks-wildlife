@@ -296,3 +296,121 @@ section p,
 .source + .key-finding {
   margin-top: 0;
 }
+
+/* ---------- Round 8: polish ---------- */
+body {
+  font-size: 17px;
+}
+
+section p {
+  line-height: 1.65;
+}
+
+/* every text block shares the same 700px column, so right edges line up */
+section p,
+.how-to,
+.key-finding {
+  box-sizing: border-box;
+  max-width: 700px;
+}
+
+/* full-width dark green title banner */
+.header {
+  margin: -48px -56px 0;
+  padding: 48px 56px 36px;
+  background: #1b3a1d;
+  color: #f1f5ef;
+  border-bottom: none;
+}
+
+.header .kicker {
+  color: #a5d6a7;
+}
+
+.header h1 {
+  color: #ffffff;
+}
+
+.header .subtitle {
+  color: #dfe9dc;
+}
+
+.header .byline {
+  color: #b8c7b5;
+}
+
+.header .stat {
+  color: #dfe9dc;
+  border-left-color: #a5d6a7;
+}
+
+.header .stat-num {
+  color: #ffffff;
+}
+
+/* section navigation: links only scroll down this one page */
+.story-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  margin: 0 -56px 44px;
+  padding: 12px 56px;
+  background: #ffffff;
+  border-bottom: 1px solid #e3e3e3;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.story-nav a {
+  color: #37474f;
+  text-decoration: none;
+}
+
+.story-nav a:hover {
+  color: #2e7d32;
+}
+
+.story-nav span {
+  display: inline-block;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  margin-right: 4px;
+  border-radius: 50%;
+  background: #2e7d32;
+  color: #ffffff;
+  text-align: center;
+  font-size: 0.85em;
+}
+
+section {
+  scroll-margin-top: 60px;
+}
+
+/* sub-headings that introduce each chart */
+h3.sub {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.3em;
+  color: #1b3a1d;
+  margin: 56px 0 10px;
+  padding-top: 24px;
+  border-top: 1px solid #e3e3e3;
+}
+
+h2 {
+  font-size: 1.9em;
+}
+
+@media (max-width: 768px) {
+  .header {
+    margin: -24px -16px 0;
+    padding: 28px 16px;
+  }
+  .story-nav {
+    margin: 0 -16px 32px;
+    padding: 10px 16px;
+  }
+}
