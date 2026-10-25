@@ -1,0 +1,105 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Inside every state, some natural regions are well protected and others hardly at all",
+    "subtitle": [
+      "Share of each natural region (bioregion) inside protected areas, 2024. Bioregions group land with similar climate, landforms and plants.",
+      "Dark green regions already meet Australia's target of 30% by 2030."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": 460,
+  "projection": {"type": "conicEqualArea", "parallels": [-18, -36], "rotate": [-132, 0], "center": [2, -27.5], "scale": {"expr": "min(width * 1.05, height * 1.75) * 0.82"}},
+  "layer": [
+    {
+      "data": {"values": [{}]},
+      "mark": {"type": "rect", "fill": "#e3eef4"},
+      "encoding": {
+        "x": {"value": 0}, "y": {"value": 0},
+        "x2": {"value": "width"}, "y2": {"value": "height"}
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/bioregions.json",
+        "format": {"type": "topojson", "feature": "bioregions"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.REG_CODE_7",
+          "from": {
+            "data": {"url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/bioregions_protected.csv"},
+            "key": "code",
+            "fields": ["bioregion", "states", "percent_protected"]
+          }
+        },
+        {"calculate": "toNumber(datum.percent_protected)", "as": "pct"},
+        {"calculate": "datum.pct < 5 ? 'Under 5%' : datum.pct < 10 ? '5–9%' : datum.pct < 20 ? '10–19%' : datum.pct < 30 ? '20–29%' : '30% or more'", "as": "band"}
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.6},
+      "encoding": {
+        "color": {
+          "field": "band",
+          "type": "ordinal",
+          "title": "% of region protected",
+          "scale": {
+            "domain": ["Under 5%", "5–9%", "10–19%", "20–29%", "30% or more"],
+            "range": ["#f7fcf5", "#c7e9c0", "#74c476", "#31a354", "#006d2c"]
+          },
+          "legend": {"orient": "top-left", "offset": 14, "symbolType": "square", "symbolSize": 180, "symbolStrokeColor": "#bbb", "labelFontSize": 11, "titleFontSize": 12, "titleLimit": 300, "fillColor": "rgba(255,255,255,0.85)", "padding": 8}
+        },
+        "tooltip": [
+          {"field": "bioregion", "type": "nominal", "title": "Bioregion"},
+          {"field": "states", "type": "nominal", "title": "States and territories"},
+          {"field": "pct", "type": "quantitative", "title": "Land protected (%)", "format": ".1f"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/australia_states.json",
+        "format": {"type": "topojson", "feature": "states"}
+      },
+      "mark": {"type": "geoshape", "filled": false, "stroke": "#555", "strokeWidth": 0.9}
+    },
+    {
+      "data": {"values": [
+        {"lon": 145.6, "lat": -42.2, "lon2": 150.2, "lat2": -42.2},
+        {"lon": 142.0, "lat": -21.5, "lon2": 151.5, "lat2": -14.0},
+        {"lon": 147.0, "lat": -20.8, "lon2": 155.0, "lat2": -19.5}
+      ]},
+      "mark": {"type": "rule", "color": "#333", "strokeWidth": 1},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"},
+        "longitude2": {"field": "lon2"},
+        "latitude2": {"field": "lat2"}
+      }
+    },
+    {
+      "data": {"values": [
+        {"lon": 150.5, "lat": -42.2, "line1": "Tasmanian West 86%", "line2": "the best-protected region"},
+        {"lon": 151.8, "lat": -14.0, "line1": "Mitchell Grass Downs 2%", "line2": "inland grazing country"},
+        {"lon": 155.3, "lat": -19.5, "line1": "Brigalow Belt North 2%", "line2": "inland Queensland"}
+      ]},
+      "encoding": {
+        "longitude": {"field": "lon", "type": "quantitative"},
+        "latitude": {"field": "lat", "type": "quantitative"}
+      },
+      "layer": [
+        {"mark": {"type": "text", "align": "left", "baseline": "bottom", "dy": -1, "fontSize": 12, "fontWeight": "bold", "color": "#1b3a1d"},
+         "encoding": {"text": {"field": "line1"}}},
+        {"mark": {"type": "text", "align": "left", "baseline": "top", "dy": 2, "fontSize": 11, "color": "#444"},
+         "encoding": {"text": {"field": "line2"}}}
+      ]
+    }
+  ],
+  "config": {
+    "view": {"stroke": null},
+    "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
+  }
+}
