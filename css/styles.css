@@ -625,3 +625,19 @@ h3,
 .park-card .park-name {
   min-height: 2.75em;
 }
+
+/* ---------- Animal photos on the park cards ---------- */
+.park-card .park-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  margin: 10px 0 0;
+  border-radius: 3px;
+}
+
+.park-card .park-photo + .park-animal {
+  margin-top: 8px !important;
+  padding-top: 0;
+  border-top: none;
+}
