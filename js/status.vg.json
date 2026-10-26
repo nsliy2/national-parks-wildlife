@@ -1,0 +1,239 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Royal records the most threatened species, but every featured park has at least eight",
+    "subtitle": [
+      "Each square is one threatened land or freshwater animal species recorded within 10 km of the park, coloured by its EPBC Act category.",
+      "The number at the end of each row is the park's total."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": {
+    "step": 34
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/threatened_by_park.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "species_count": "number"
+      }
+    }
+  },
+  "transform": [
+    {
+      "calculate": "datum.status == 'Critically Endangered' ? 0 : datum.status == 'Endangered' ? 1 : 2",
+      "as": "severity"
+    },
+    {
+      "calculate": "datum.status == 'Critically Endangered' ? 'Critically endangered' : datum.status",
+      "as": "category"
+    },
+    {
+      "calculate": "sequence(0, datum.species_count)",
+      "as": "unit"
+    },
+    {
+      "flatten": [
+        "unit"
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "row_number",
+          "as": "position"
+        }
+      ],
+      "groupby": [
+        "park"
+      ],
+      "sort": [
+        {
+          "field": "severity"
+        },
+        {
+          "field": "unit"
+        }
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "count",
+          "as": "total"
+        }
+      ],
+      "groupby": [
+        "park"
+      ]
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "park",
+      "type": "nominal",
+      "sort": {
+        "field": "total",
+        "op": "max",
+        "order": "descending"
+      },
+      "title": null,
+      "axis": {
+        "labelFontSize": 12,
+        "labelLimit": 320,
+        "labelPadding": 8,
+        "domain": false,
+        "ticks": false
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "square",
+        "size": 150,
+        "opacity": 1,
+        "stroke": "white",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "x": {
+          "field": "position",
+          "type": "quantitative",
+          "title": null,
+          "scale": {
+            "domain": [
+              0,
+              42
+            ]
+          },
+          "axis": null
+        },
+        "color": {
+          "field": "category",
+          "type": "nominal",
+          "title": "EPBC Act category",
+          "scale": {
+            "domain": [
+              "Critically endangered",
+              "Endangered",
+              "Vulnerable"
+            ],
+            "range": [
+              "#a50f15",
+              "#ef3b2c",
+              "#fcae91"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "symbolType": "square",
+            "symbolSize": 150,
+            "labelFontSize": 12,
+            "titleFontSize": 12,
+            "titleLimit": 300,
+            "labelLimit": 300
+          }
+        },
+        "tooltip": [
+          {
+            "field": "park",
+            "title": "Park"
+          },
+          {
+            "field": "category",
+            "title": "EPBC Act category"
+          },
+          {
+            "field": "species_count",
+            "type": "quantitative",
+            "title": "Species in this category"
+          },
+          {
+            "field": "total",
+            "type": "quantitative",
+            "title": "Total threatened species"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "aggregate": [
+            {
+              "op": "max",
+              "field": "total",
+              "as": "total"
+            }
+          ],
+          "groupby": [
+            "park"
+          ]
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 14,
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#222"
+      },
+      "encoding": {
+        "x": {
+          "field": "total",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "total",
+          "type": "quantitative"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "park": "Daintree",
+            "x": 21.5,
+            "t": "5 critically endangered, the most of any featured park"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 30,
+        "fontSize": 11.5,
+        "fontStyle": "italic",
+        "color": "#444"
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "park",
+          "type": "nominal"
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
+  }
+}
