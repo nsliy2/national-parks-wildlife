@@ -109,7 +109,7 @@ h3 {
 /* ---------- Conclusion + footer ---------- */
 .conclusion p {
   font-size: 1.1em;
-  max-width: 720px;
+  max-width: 700px;
 }
 
 .footer {
@@ -297,27 +297,34 @@ section p,
   margin-top: 0;
 }
 
-/* ---------- Round 8: polish ---------- */
+/* ======================================================
+   Design system (round 8)
+   ====================================================== */
 body {
   font-size: 17px;
+}
+
+/* --- one centred reading column; charts are wider and centred too --- */
+.intro,
+section > h2,
+section > h3.sub,
+section > p,
+section > .key-finding,
+.footer > * {
+  box-sizing: border-box;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 section p {
   line-height: 1.65;
 }
 
-/* every text block shares the same 700px column, so right edges line up */
-section p,
-.how-to,
-.key-finding {
-  box-sizing: border-box;
-  max-width: 700px;
-}
-
-/* full-width dark green title banner */
+/* --- compact title banner --- */
 .header {
   margin: -48px -56px 0;
-  padding: 48px 56px 36px;
+  padding: 40px 56px 32px;
   background: #1b3a1d;
   color: #f1f5ef;
   border-bottom: none;
@@ -329,14 +336,25 @@ section p,
 
 .header h1 {
   color: #ffffff;
+  font-size: 2.6em;
+  margin: 4px 0 6px;
 }
 
 .header .subtitle {
   color: #dfe9dc;
+  font-size: 1.2em;
+  margin-bottom: 8px;
 }
 
 .header .byline {
   color: #b8c7b5;
+  margin-bottom: 0;
+}
+
+.stats {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .header .stat {
@@ -348,37 +366,57 @@ section p,
   color: #ffffff;
 }
 
-/* section navigation: links only scroll down this one page */
+/* --- opening paragraph under the navigation --- */
+.intro {
+  font-size: 1.15em;
+  line-height: 1.6;
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 56px;
+}
+
+/* --- section navigation: pill buttons, centred, links only scroll this page --- */
 .story-nav {
   position: sticky;
   top: 0;
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 22px;
+  justify-content: center;
+  gap: 8px;
   margin: 0 -56px 44px;
-  padding: 12px 56px;
-  background: #ffffff;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.97);
   border-bottom: 1px solid #e3e3e3;
-  font-size: 0.85em;
-  font-weight: 600;
 }
 
 .story-nav a {
-  color: #37474f;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 13px;
+  border: 1px solid #d5dcd3;
+  border-radius: 999px;
+  background: #f4f6f1;
+  color: #1b3a1d;
+  font-size: 0.82em;
+  font-weight: 600;
+  white-space: nowrap;
   text-decoration: none;
+  transition: background 0.15s, color 0.15s;
 }
 
 .story-nav a:hover {
-  color: #2e7d32;
+  background: #2e7d32;
+  border-color: #2e7d32;
+  color: #ffffff;
 }
 
-.story-nav span {
+.story-nav a span {
   display: inline-block;
-  width: 1.5em;
-  height: 1.5em;
-  line-height: 1.5em;
-  margin-right: 4px;
+  width: 1.6em;
+  height: 1.6em;
+  line-height: 1.6em;
   border-radius: 50%;
   background: #2e7d32;
   color: #ffffff;
@@ -386,22 +424,50 @@ section p,
   font-size: 0.85em;
 }
 
-section {
-  scroll-margin-top: 60px;
+.story-nav a:hover span {
+  background: #ffffff;
+  color: #2e7d32;
 }
 
-/* sub-headings that introduce each chart */
+section {
+  scroll-margin-top: 80px;
+}
+
+/* --- headings --- */
+h2 {
+  font-size: 1.9em;
+  margin-bottom: 14px;
+}
+
 h3.sub {
   font-family: "Fraunces", Georgia, serif;
   font-size: 1.3em;
   color: #1b3a1d;
-  margin: 56px 0 10px;
+  margin-top: 56px;
+  margin-bottom: 10px;
   padding-top: 24px;
   border-top: 1px solid #e3e3e3;
 }
 
-h2 {
-  font-size: 1.9em;
+/* --- "Why it matters" paragraphs --- */
+.explain .label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2e7d32;
+}
+
+/* key findings and how-to boxes sit in the same column */
+.how-to,
+.key-finding {
+  box-sizing: border-box;
+}
+
+.source {
+  max-width: none;
 }
 
 @media (max-width: 768px) {
