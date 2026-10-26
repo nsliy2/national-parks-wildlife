@@ -161,27 +161,76 @@
         available. Large parks were easier to create in the outback and the far north, where few people live. Near the
         coast, where most Australians live, parks had to fit around towns and farms.</p>
 
-      <div class="pure-g featured">
-        <div class="pure-u-1-3">
-          <h3>Meet the eight parks</h3>
-          <p>One well-known national park was chosen in each state and territory, so that every part of Australia is
-            represented. They are outlined and named on every chart that follows.</p>
-        </div>
-        <div class="pure-u-1-3">
-          <ul>
-            <li><strong>Royal</strong>, New South Wales</li>
-            <li><strong>Wilsons Promontory</strong>, Victoria</li>
-            <li><strong>Daintree</strong>, Queensland</li>
-            <li><strong>Namadgi</strong>, Australian Capital Territory</li>
-          </ul>
-        </div>
-        <div class="pure-u-1-3">
-          <ul>
-            <li><strong>Ikara-Flinders Ranges</strong>, South Australia</li>
-            <li><strong>Cradle Mountain-Lake St Clair</strong>, Tasmania</li>
-            <li><strong>Stirling Range</strong>, Western Australia</li>
-            <li><strong>Kakadu</strong>, Northern Territory</li>
-          </ul>
+      <div class="featured">
+        <h3>Meet the eight parks</h3>
+        <p class="featured-intro">One well-known national park was chosen in each state and territory, so every part of
+          Australia is represented. Each is paired with a threatened animal it is known for, and both are followed through
+          the rest of the story.</p>
+        <div class="pure-g park-grid">
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">New South Wales</p>
+              <p class="park-name">Royal</p>
+              <p class="park-area">15,324 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Koala</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">Victoria</p>
+              <p class="park-name">Wilsons Promontory</p>
+              <p class="park-area">48,202 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Gang-gang Cockatoo</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">Queensland</p>
+              <p class="park-name">Daintree</p>
+              <p class="park-area">116,221 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Southern Cassowary</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">Australian Capital Territory</p>
+              <p class="park-name">Namadgi</p>
+              <p class="park-area">77,872 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Greater Glider</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">South Australia</p>
+              <p class="park-name">Ikara-Flinders Ranges</p>
+              <p class="park-area">95,572 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Yellow-footed Rock-wallaby</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">Tasmania</p>
+              <p class="park-name">Cradle Mountain-Lake St Clair</p>
+              <p class="park-area">161,676 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Tasmanian Devil</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">Western Australia</p>
+              <p class="park-name">Stirling Range</p>
+              <p class="park-area">113,605 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Carnaby's Black-Cockatoo</p>
+            </div>
+          </div>
+          <div class="pure-u-1-4">
+            <div class="park-card">
+              <p class="park-state">Northern Territory</p>
+              <p class="park-name">Kakadu</p>
+              <p class="park-area">1,911,122 hectares</p>
+              <p class="park-animal"><span>Threatened animal</span>Northern Quoll</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -221,6 +270,23 @@
         and hard to reach. Species counts are best read as "what has been recorded", not as a measure of how rich a
         park really is.</p>
 
+      <h3 class="sub">How often is each park observed?</h3>
+      <p>Observer bias can be measured directly. Every sighting in the Atlas is stored as an observation record, so
+        counting the records near each park shows how much attention it receives, and how closely that attention tracks
+        the number of species found.</p>
+      <div id="observations" class="vis-container"></div>
+      <p class="source">Source: Atlas of Living Australia species lists, accessed 11 October 2026.</p>
+      <div class="key-finding">
+        <span class="kf-label">Key finding</span>
+        <p>Royal has 423,588 observation records, 133 times more than Kakadu's 3,194. Parks with more records generally
+          list more species. The clearest exception is the Daintree, which records more than 1,100 species from fewer
+          than 8,000 observations.</p>
+      </div>
+      <p class="explain"><span class="label">Why it matters</span>Most of the difference in species counts between
+        the parks follows the difference in observation effort, which confirms that species lists partly measure where
+        people look. The Daintree stands out because the Wet Tropics are one of the most species-rich regions in
+        Australia, so even a modest number of observations finds a great deal.</p>
+
       <h3 class="sub">Which animals are recorded?</h3>
       <p>The mix of animals recorded also differs between parks. Showing each park's species as shares of 100% allows
         parks with very different totals to be compared directly.</p>
@@ -234,6 +300,21 @@
       <p class="explain"><span class="label">Why it matters</span>Insects are by far the most diverse group of animals,
         so they dominate any list where people take the time to record them. Kakadu's bird-heavy list suggests its
         insects have simply been recorded less, rather than that it has fewer of them.</p>
+
+      <h3 class="sub">Which threatened species live near each park?</h3>
+      <p>The species lists can also be checked against the national threatened species list. Each park's threatened
+        land and freshwater animals are shown below by category, from critically endangered, the most urgent, to
+        vulnerable.</p>
+      <div id="status" class="vis-container"></div>
+      <p class="source">Source: Atlas of Living Australia species lists, checked against the EPBC Act list.</p>
+      <div class="key-finding">
+        <span class="kf-label">Key finding</span>
+        <p>Royal has the most threatened species recorded (37), followed by Wilsons Promontory (27) and the Daintree
+          (20). The Daintree also has the most critically endangered species of any featured park (5).</p>
+      </div>
+      <p class="explain"><span class="label">Why it matters</span>Every featured park supports at least eight
+        threatened species, so each plays a part in protecting animals at risk. Raw counts, however, again favour the
+        most visited parks, which is why the next chart compares the share of species that are threatened instead.</p>
 
       <h3 class="sub">Where are species most at risk?</h3>
       <p>A park with many species is not necessarily the most important for animals at risk. Ranking the parks twice,

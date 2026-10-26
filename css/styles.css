@@ -484,3 +484,101 @@ h3.sub {
     padding: 10px 16px;
   }
 }
+
+/* ---------- Meet the eight parks: card grid ---------- */
+.featured {
+  background: #1b3a1d;
+  color: #f1f5ef;
+  padding: 28px 28px 20px;
+  margin: 16px 0 48px;
+  border-radius: 6px;
+}
+
+.featured h3 {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.4em;
+  color: #ffffff;
+  margin: 0 0 6px;
+}
+
+.featured .featured-intro {
+  color: #dfe9dc;
+  font-size: 0.95em;
+  margin: 0 0 18px;
+}
+
+.park-grid {
+  margin: 0 -6px;
+}
+
+.park-grid .pure-u-1-4 {
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.park-card {
+  height: 100%;
+  min-height: 150px;
+  box-sizing: border-box;
+  padding: 14px 14px 12px;
+  background: #ffffff;
+  border-top: 4px solid #81c784;
+  border-radius: 4px;
+  color: #222;
+}
+
+.park-card p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.park-card .park-state {
+  font-size: 0.68em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2e7d32;
+}
+
+.park-card .park-name {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.08em;
+  font-weight: 700;
+  color: #1b3a1d;
+  margin: 4px 0 6px !important;
+}
+
+.park-card .park-area {
+  font-size: 0.85em;
+  color: #555;
+}
+
+.park-card .park-animal {
+  margin-top: 10px !important;
+  padding-top: 8px;
+  border-top: 1px solid #e6e6e6;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: #222;
+}
+
+.park-card .park-animal span {
+  display: block;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #777;
+}
+
+/* ---------- Typography consistency: every sub-heading uses the heading typeface ---------- */
+h3,
+.side-text h3,
+.footer h3 {
+  font-family: "Fraunces", Georgia, serif;
+  color: #1b3a1d;
+}
+
+@media (max-width: 768px) {
+  .park-grid .pure-u-1-4 {
+    width: 50%;
+  }
+}
