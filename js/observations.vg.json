@@ -1,0 +1,296 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "The more a park is observed, the more species it records",
+    "subtitle": [
+      "Each dot is one featured park: animal observation records (across) against animal species recorded (up),",
+      "both within 10 km of the park's centre point. Both axes use a log scale, so each step multiplies the value."
+    ],
+    "anchor": "start",
+    "fontSize": 18,
+    "subtitleFontSize": 13,
+    "subtitleColor": "#555"
+  },
+  "width": "container",
+  "height": 360,
+  "data": {
+    "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/observations_by_park.csv",
+    "format": {
+      "type": "csv",
+      "parse": {
+        "observation_records": "number",
+        "species_recorded": "number"
+      }
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "observation_records",
+      "type": "quantitative",
+      "title": "Observation records (log scale)",
+      "scale": {
+        "type": "log",
+        "domain": [
+          1000,
+          1000000
+        ]
+      },
+      "axis": {
+        "values": [
+          1000,
+          10000,
+          100000,
+          1000000
+        ],
+        "format": ",",
+        "grid": true,
+        "gridColor": "#eee",
+        "titleFontSize": 12,
+        "labelFontSize": 11
+      }
+    },
+    "y": {
+      "field": "species_recorded",
+      "type": "quantitative",
+      "title": "Animal species recorded (log scale)",
+      "scale": {
+        "type": "log",
+        "domain": [
+          200,
+          10000
+        ]
+      },
+      "axis": {
+        "values": [
+          200,
+          500,
+          1000,
+          2000,
+          5000,
+          10000
+        ],
+        "format": ",",
+        "grid": true,
+        "gridColor": "#eee",
+        "titleFontSize": 12,
+        "labelFontSize": 11
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "size": 170,
+        "opacity": 1,
+        "stroke": "white",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "color": {
+          "condition": {
+            "test": "datum.park == 'Royal' || datum.park == 'Kakadu'",
+            "value": "#2e7d32"
+          },
+          "value": "#9ccc9c"
+        },
+        "tooltip": [
+          {
+            "field": "park",
+            "title": "Park"
+          },
+          {
+            "field": "state",
+            "title": "State or territory"
+          },
+          {
+            "field": "observation_records",
+            "type": "quantitative",
+            "title": "Observation records",
+            "format": ","
+          },
+          {
+            "field": "species_recorded",
+            "type": "quantitative",
+            "title": "Animal species recorded",
+            "format": ","
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.park != 'Cradle Mountain' && datum.park != 'Ikara-Flinders Ranges'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "dy": -2,
+        "fontSize": 11.5,
+        "fontWeight": "bold",
+        "color": "#1b3a1d"
+      },
+      "encoding": {
+        "text": {
+          "field": "park"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.park == 'Cradle Mountain' || datum.park == 'Ikara-Flinders Ranges'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "dy": 12,
+        "fontSize": 11.5,
+        "fontWeight": "bold",
+        "color": "#1b3a1d"
+      },
+      "encoding": {
+        "text": {
+          "field": "park"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": 423588,
+            "y": 4683,
+            "t": [
+              "423,588 records,",
+              "4,683 species"
+            ],
+            "a": "right"
+          },
+          {
+            "x": 3194,
+            "y": 331,
+            "t": [
+              "3,194 records,",
+              "331 species"
+            ],
+            "a": "left"
+          }
+        ]
+      },
+      "transform": [
+        {
+          "filter": "datum.a == 'right'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -12,
+        "dy": 18,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#444",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": 3194,
+            "y": 331,
+            "t": [
+              "3,194 records,",
+              "331 species"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "dx": 12,
+        "dy": 16,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#444",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "x": 7714,
+            "y": 1149,
+            "t": [
+              "Daintree records many species",
+              "from few observations"
+            ]
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -14,
+        "dy": -4,
+        "fontSize": 11,
+        "fontStyle": "italic",
+        "color": "#444",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "t"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
+  }
+}
