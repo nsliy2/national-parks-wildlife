@@ -1,8 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": {
-    "text": ["Half of Australia's protected land", "is Indigenous Protected Areas"],
-    "subtitle": ["National parks make up about a quarter.", "Each square is 1% of all protected land."],
+  "title": {
+    "text": [
+      "Half of Australia's protected land",
+      "is Indigenous Protected Areas"
+    ],
+    "subtitle": [
+      "National parks make up about a quarter.",
+      "Each square is 1% of all protected land."
+    ],
     "anchor": "start",
     "fontSize": 18,
     "subtitleFontSize": 13,
@@ -14,76 +20,253 @@
     "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/protected_by_type.csv"
   },
   "transform": [
-    {"filter": "indexof(datum.type, 'Antarctic') == -1"},
+    {
+      "filter": "indexof(datum.type, 'Antarctic') == -1"
+    },
     {
       "calculate": "datum.type == 'Indigenous Protected Area' ? 'Indigenous Protected Areas' : (indexof(datum.type, 'National Park') >= 0 && indexof(datum.type, 'Act') == -1) ? 'National parks' : datum.type == 'Nature Reserve' ? 'Nature reserves' : indexof(['Private Nature Reserve', 'Nature Refuge', 'Heritage Agreement', 'Conservation Covenant', 'Conservation Agreement', 'Biodiversity Stewardship Agreement', 'Private Sanctuary', 'Southern Mallee Private Reserve', 'NCT Agreement', 'Registered Property Agreement'], datum.type) >= 0 ? 'Private land' : 'Other reserves'",
       "as": "group"
     },
-    {"aggregate": [{"op": "sum", "field": "area_ha", "as": "area"}], "groupby": ["group"]},
-    {"joinaggregate": [{"op": "sum", "field": "area", "as": "total"}]},
-    {"calculate": "datum.area / datum.total * 100", "as": "share"},
+    {
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "area_ha",
+          "as": "area"
+        }
+      ],
+      "groupby": [
+        "group"
+      ]
+    },
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "area",
+          "as": "total"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.area / datum.total * 100",
+      "as": "share"
+    },
     {
       "calculate": "indexof(['Indigenous Protected Areas', 'National parks', 'Nature reserves', 'Private land', 'Other reserves'], datum.group)",
       "as": "order"
     },
     {
-      "window": [{"op": "sum", "field": "share", "as": "cumulative"}],
-      "sort": [{"field": "order"}]
+      "window": [
+        {
+          "op": "sum",
+          "field": "share",
+          "as": "cumulative"
+        }
+      ],
+      "sort": [
+        {
+          "field": "order"
+        }
+      ]
     },
-    {"calculate": "round(datum.cumulative - datum.share)", "as": "first_square"},
-    {"calculate": "round(datum.cumulative)", "as": "last_square"},
-    {"calculate": "datum.last_square - datum.first_square", "as": "squares"},
-    {"calculate": "datum.group + ' (' + datum.squares + '%)'", "as": "label"},
-    {"calculate": "sequence(datum.first_square, datum.last_square)", "as": "square_id"},
-    {"flatten": ["square_id"]},
-    {"calculate": "datum.square_id % 10", "as": "column"},
-    {"calculate": "floor(datum.square_id / 10)", "as": "row"}
+    {
+      "calculate": "round(datum.cumulative - datum.share)",
+      "as": "first_square"
+    },
+    {
+      "calculate": "round(datum.cumulative)",
+      "as": "last_square"
+    },
+    {
+      "calculate": "datum.last_square - datum.first_square",
+      "as": "squares"
+    },
+    {
+      "calculate": "datum.group + ' (' + datum.squares + '%)'",
+      "as": "label"
+    },
+    {
+      "calculate": "sequence(datum.first_square, datum.last_square)",
+      "as": "square_id"
+    },
+    {
+      "flatten": [
+        "square_id"
+      ]
+    },
+    {
+      "calculate": "datum.square_id % 10",
+      "as": "column"
+    },
+    {
+      "calculate": "floor(datum.square_id / 10)",
+      "as": "row"
+    }
   ],
   "layer": [
-  {
-  "mark": {"type": "rect", "stroke": "white", "strokeWidth": 2},
-  "encoding": {
-    "x": {"field": "column", "type": "ordinal", "axis": null},
-    "y": {"field": "row", "type": "ordinal", "axis": null},
-    "color": {
-      "field": "label",
-      "type": "nominal",
-      "title": "Type of protected land",
-      "sort": {"field": "order"},
-      "scale": {"range": ["#b5651d", "#2e7d32", "#81c784", "#d4b96a", "#c8c8c8"]},
-      "legend": null
+    {
+      "mark": {
+        "type": "rect",
+        "stroke": "white",
+        "strokeWidth": 2
+      },
+      "encoding": {
+        "x": {
+          "field": "column",
+          "type": "ordinal",
+          "axis": null
+        },
+        "y": {
+          "field": "row",
+          "type": "ordinal",
+          "axis": null
+        },
+        "color": {
+          "field": "label",
+          "type": "nominal",
+          "title": "Type of protected land",
+          "sort": {
+            "field": "order"
+          },
+          "scale": {
+            "range": [
+              "#b5651d",
+              "#2e7d32",
+              "#81c784",
+              "#d4b96a",
+              "#c8c8c8"
+            ]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "group",
+            "type": "nominal",
+            "title": "Type"
+          },
+          {
+            "field": "squares",
+            "type": "quantitative",
+            "title": "Share of protected land (%)"
+          },
+          {
+            "field": "area",
+            "type": "quantitative",
+            "title": "Area (hectares)",
+            "format": ",.0f"
+          }
+        ]
+      }
     },
-    "tooltip": [
-      {"field": "group", "type": "nominal", "title": "Type"},
-      {"field": "squares", "type": "quantitative", "title": "Share of protected land (%)"},
-      {"field": "area", "type": "quantitative", "title": "Area (hectares)", "format": ",.0f"}
-    ]
-  }
-  },
-  {
-    "data": {"values": [
-      {"x": 150, "y": 75, "t": "Indigenous Protected Areas: 50%", "c": "#b5651d", "tc": "white", "fs": 13},
-      {"x": 150, "y": 165, "t": "National parks: 24%", "c": "#2e7d32", "tc": "white", "fs": 13},
-      {"x": 210, "y": 225, "t": "Nature reserves: 6%", "c": "#81c784", "tc": "#1b3a1d", "fs": 11},
-      {"x": 90, "y": 255, "t": "Private land: 6%", "c": "#d4b96a", "tc": "#3e2f0b", "fs": 11},
-      {"x": 150, "y": 285, "t": "Other reserves: 14%", "c": "#c8c8c8", "tc": "#333333", "fs": 11}
-    ]},
-    "encoding": {
-      "x": {"field": "x", "type": "quantitative", "scale": null},
-      "y": {"field": "y", "type": "quantitative", "scale": null},
-      "text": {"field": "t"},
-      "size": {"field": "fs", "type": "quantitative", "scale": null, "legend": null}
-    },
-    "layer": [
-      {"mark": {"type": "text", "fontWeight": "bold", "strokeWidth": 8, "strokeJoin": "round"},
-       "encoding": {"stroke": {"field": "c", "type": "nominal", "scale": null}, "color": {"field": "c", "type": "nominal", "scale": null}}},
-      {"mark": {"type": "text", "fontWeight": "bold"},
-       "encoding": {"color": {"field": "tc", "type": "nominal", "scale": null}}}
-    ]
-  }
+    {
+      "data": {
+        "values": [
+          {
+            "x": 150,
+            "y": 75,
+            "t": "Indigenous Protected Areas: 50%",
+            "c": "#b5651d",
+            "tc": "white",
+            "fs": 13
+          },
+          {
+            "x": 150,
+            "y": 165,
+            "t": "National parks: 24%",
+            "c": "#2e7d32",
+            "tc": "white",
+            "fs": 13
+          },
+          {
+            "x": 210,
+            "y": 225,
+            "t": "Nature reserves: 6%",
+            "c": "#81c784",
+            "tc": "#1b3a1d",
+            "fs": 12
+          },
+          {
+            "x": 90,
+            "y": 255,
+            "t": "Private land: 6%",
+            "c": "#d4b96a",
+            "tc": "#3e2f0b",
+            "fs": 12
+          },
+          {
+            "x": 150,
+            "y": 285,
+            "t": "Other reserves: 14%",
+            "c": "#c8c8c8",
+            "tc": "#333333",
+            "fs": 12
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative",
+          "scale": null
+        },
+        "y": {
+          "field": "y",
+          "type": "quantitative",
+          "scale": null
+        },
+        "text": {
+          "field": "t"
+        },
+        "size": {
+          "field": "fs",
+          "type": "quantitative",
+          "scale": null,
+          "legend": null
+        }
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "text",
+            "fontWeight": "bold",
+            "strokeWidth": 8,
+            "strokeJoin": "round"
+          },
+          "encoding": {
+            "stroke": {
+              "field": "c",
+              "type": "nominal",
+              "scale": null
+            },
+            "color": {
+              "field": "c",
+              "type": "nominal",
+              "scale": null
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "fontWeight": "bold"
+          },
+          "encoding": {
+            "color": {
+              "field": "tc",
+              "type": "nominal",
+              "scale": null
+            }
+          }
+        }
+      ]
+    }
   ],
-    "config": {
-    "view": {"stroke": null},
+  "config": {
+    "view": {
+      "stroke": null
+    },
     "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
   }
 }
