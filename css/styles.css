@@ -582,3 +582,27 @@ h3,
     width: 50%;
   }
 }
+
+/* ---------- Round 13: consistent boxes and the story opener ---------- */
+/* "How to read it" uses the same box shape as key findings, in green, so text indents match */
+.how-to {
+  padding: 12px 16px;
+  border-left: 4px solid #81c784;
+  border-radius: 0;
+  background: #f4f6f1;
+}
+
+.intro .label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.65em;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2e7d32;
+}
+
+.intro {
+  padding-left: 16px;
+  border-left: 4px solid #2e7d32;
+}
