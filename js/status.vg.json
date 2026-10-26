@@ -4,7 +4,7 @@
     "text": "Royal records the most threatened species, but every featured park has at least eight",
     "subtitle": [
       "Each square is one threatened land or freshwater animal species recorded within 10 km of the park, coloured by its EPBC Act category.",
-      "The number at the end of each row is the park's total."
+      "The label at the end of each row is the park's total number of threatened species."
     ],
     "anchor": "start",
     "fontSize": 18,
@@ -86,7 +86,6 @@
       "axis": {
         "labelFontSize": 12,
         "labelLimit": 320,
-        "labelPadding": 8,
         "domain": false,
         "ticks": false
       }
@@ -176,6 +175,10 @@
           "groupby": [
             "park"
           ]
+        },
+        {
+          "calculate": "datum.park == 'Daintree' ? [datum.total + ' species, including 5 critically endangered:', 'the most of any featured park'] : datum.total + ' species'",
+          "as": "lab"
         }
       ],
       "mark": {
@@ -184,7 +187,8 @@
         "dx": 14,
         "fontSize": 12,
         "fontWeight": "bold",
-        "color": "#222"
+        "color": "#222",
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -192,40 +196,7 @@
           "type": "quantitative"
         },
         "text": {
-          "field": "total",
-          "type": "quantitative"
-        }
-      }
-    },
-    {
-      "data": {
-        "values": [
-          {
-            "park": "Daintree",
-            "x": 21.5,
-            "t": "5 critically endangered, the most of any featured park"
-          }
-        ]
-      },
-      "mark": {
-        "type": "text",
-        "align": "left",
-        "dx": 30,
-        "fontSize": 11.5,
-        "fontStyle": "italic",
-        "color": "#444"
-      },
-      "encoding": {
-        "x": {
-          "field": "x",
-          "type": "quantitative"
-        },
-        "y": {
-          "field": "park",
-          "type": "nominal"
-        },
-        "text": {
-          "field": "t"
+          "field": "lab"
         }
       }
     }

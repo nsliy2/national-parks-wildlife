@@ -67,10 +67,10 @@
         "labelExpr": "datum.label == 'Extinct in the wild' ? ['Extinct in', 'the wild'] : datum.label == 'Critically endangered' ? ['Critically', 'endangered'] : datum.label == 'Conservation dependent' ? ['Conservation', 'dependent'] : datum.label",
         "labelFontSize": 12,
         "titleFontSize": 12,
-        "titlePadding": 12,
+        "titlePadding": 16,
         "domain": false,
         "ticks": false,
-        "labelPadding": 6
+        "labelPadding": 10
       }
     },
     "y": {
@@ -88,7 +88,8 @@
       "axis": {
         "labelFontSize": 12,
         "domain": false,
-        "ticks": false
+        "ticks": false,
+        "labelPadding": 20
       }
     }
   },
@@ -120,7 +121,7 @@
             ]
           },
           "legend": {
-            "title": "Species (count)",
+            "title": "Number of species",
             "orient": "bottom",
             "direction": "horizontal",
             "symbolType": "square",
@@ -184,13 +185,70 @@
       }
     },
     {
-      "data": {"values": [{"t": ["Outlined: 39 mammals are already extinct,", "more than all other groups combined (28)"]}]},
-      "mark": {"type": "text", "align": "right", "baseline": "top", "fontSize": 12, "fontWeight": "bold", "color": "#a50f15", "lineHeight": 15},
-      "encoding": {
-        "x": {"value": {"expr": "width"}},
-        "y": {"value": {"expr": "height + 72"}},
-        "text": {"field": "t"}
-      }
+      "data": {
+        "values": [
+          {
+            "t": "39 mammals are already extinct, more than all other groups combined (28)"
+          }
+        ]
+      },
+      "layer": [
+        {
+          "mark": {
+            "type": "rect",
+            "fill": null,
+            "stroke": "#222",
+            "strokeWidth": 2.5
+          },
+          "encoding": {
+            "x": {
+              "value": {
+                "expr": "width - 458"
+              }
+            },
+            "x2": {
+              "value": {
+                "expr": "width - 440"
+              }
+            },
+            "y": {
+              "value": {
+                "expr": "height + 77"
+              }
+            },
+            "y2": {
+              "value": {
+                "expr": "height + 91"
+              }
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "baseline": "middle",
+            "fontSize": 12,
+            "fontWeight": "bold",
+            "color": "#222"
+          },
+          "encoding": {
+            "x": {
+              "value": {
+                "expr": "width - 432"
+              }
+            },
+            "y": {
+              "value": {
+                "expr": "height + 84"
+              }
+            },
+            "text": {
+              "field": "t"
+            }
+          }
+        }
+      ]
     }
   ],
   "config": {

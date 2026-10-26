@@ -142,7 +142,7 @@
     {
       "transform": [
         {
-          "filter": "datum.park == 'Cradle Mountain' || datum.park == 'Ikara-Flinders Ranges'"
+          "filter": "datum.park == 'Ikara-Flinders Ranges'"
         }
       ],
       "mark": {
@@ -150,6 +150,27 @@
         "align": "left",
         "dx": 12,
         "dy": 12,
+        "fontSize": 11.5,
+        "fontWeight": "bold",
+        "color": "#1b3a1d"
+      },
+      "encoding": {
+        "text": {
+          "field": "park"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.park == 'Cradle Mountain'"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -12,
+        "dy": -2,
         "fontSize": 11.5,
         "fontWeight": "bold",
         "color": "#1b3a1d"

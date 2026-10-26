@@ -12,97 +12,267 @@
     "subtitleColor": "#555"
   },
   "width": "container",
-  "height": {"step": 40},
+  "height": {
+    "step": 40
+  },
   "data": {
     "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/protected_by_state.csv",
-    "format": {"type": "csv", "parse": {"state_area_ha": "number", "protected_area_ha": "number"}}
+    "format": {
+      "type": "csv",
+      "parse": {
+        "state_area_ha": "number",
+        "protected_area_ha": "number"
+      }
+    }
   },
   "transform": [
-    {"joinaggregate": [
-      {"op": "sum", "field": "state_area_ha", "as": "total_land"},
-      {"op": "sum", "field": "protected_area_ha", "as": "total_protected"}
-    ]},
-    {"calculate": "datum.state_area_ha / datum.total_land", "as": "land_share"},
-    {"calculate": "datum.protected_area_ha / datum.total_protected", "as": "protected_share"}
+    {
+      "joinaggregate": [
+        {
+          "op": "sum",
+          "field": "state_area_ha",
+          "as": "total_land"
+        },
+        {
+          "op": "sum",
+          "field": "protected_area_ha",
+          "as": "total_protected"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.state_area_ha / datum.total_land",
+      "as": "land_share"
+    },
+    {
+      "calculate": "datum.protected_area_ha / datum.total_protected",
+      "as": "protected_share"
+    }
   ],
   "encoding": {
     "y": {
       "field": "state",
       "type": "nominal",
-      "sort": {"field": "land_share", "order": "descending"},
+      "sort": {
+        "field": "land_share",
+        "order": "descending"
+      },
       "title": null,
-      "axis": {"labelFontSize": 12, "labelLimit": 320, "labelPadding": 10, "domain": false, "ticks": false}
+      "axis": {
+        "labelFontSize": 12,
+        "labelLimit": 320,
+        "domain": false,
+        "ticks": false
+      }
     }
   },
   "layer": [
     {
-      "mark": {"type": "rule", "strokeWidth": 3},
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 3
+      },
       "encoding": {
         "x": {
           "field": "land_share",
           "type": "quantitative",
           "title": "Share of Australia's total (%)",
-          "scale": {"domain": [0, 0.5]},
-          "axis": {"format": ".0%", "grid": true, "gridColor": "#eee", "titleFontSize": 12, "values": [0, 0.1, 0.2, 0.3, 0.4, 0.5]}
+          "scale": {
+            "domain": [
+              0,
+              0.5
+            ]
+          },
+          "axis": {
+            "format": ".0%",
+            "grid": true,
+            "gridColor": "#eee",
+            "titleFontSize": 12,
+            "values": [
+              0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5
+            ]
+          }
         },
-        "x2": {"field": "protected_share"},
-        "color": {"value": "#c8c8c8"}
+        "x2": {
+          "field": "protected_share"
+        },
+        "color": {
+          "value": "#c8c8c8"
+        }
       }
     },
     {
       "transform": [
-        {"fold": ["land_share", "protected_share"], "as": ["key", "share"]},
-        {"calculate": "datum.key == 'land_share' ? 'Share of Australia\\'s land' : 'Share of Australia\\'s protected land'", "as": "measure"}
+        {
+          "fold": [
+            "land_share",
+            "protected_share"
+          ],
+          "as": [
+            "key",
+            "share"
+          ]
+        },
+        {
+          "calculate": "datum.key == 'land_share' ? 'Share of Australia\\'s land' : 'Share of Australia\\'s protected land'",
+          "as": "measure"
+        }
       ],
-      "mark": {"type": "circle", "size": 150, "opacity": 1, "stroke": "white", "strokeWidth": 1},
+      "mark": {
+        "type": "circle",
+        "size": 150,
+        "opacity": 1,
+        "stroke": "white",
+        "strokeWidth": 1
+      },
       "encoding": {
-        "x": {"field": "share", "type": "quantitative"},
+        "x": {
+          "field": "share",
+          "type": "quantitative"
+        },
         "color": {
           "field": "measure",
           "type": "nominal",
           "title": null,
-          "scale": {"domain": ["Share of Australia's land", "Share of Australia's protected land"], "range": ["#8d8d8d", "#2e7d32"]},
-          "legend": {"orient": "top", "direction": "horizontal", "labelFontSize": 12, "symbolSize": 150, "labelLimit": 300}
+          "scale": {
+            "domain": [
+              "Share of Australia's land",
+              "Share of Australia's protected land"
+            ],
+            "range": [
+              "#8d8d8d",
+              "#2e7d32"
+            ]
+          },
+          "legend": {
+            "orient": "top",
+            "direction": "horizontal",
+            "labelFontSize": 12,
+            "symbolSize": 150,
+            "labelLimit": 300
+          }
         },
         "tooltip": [
-          {"field": "state", "title": "State or territory"},
-          {"field": "measure", "title": "Measure"},
-          {"field": "share", "type": "quantitative", "title": "Share", "format": ".1%"}
+          {
+            "field": "state",
+            "title": "State or territory"
+          },
+          {
+            "field": "measure",
+            "title": "Measure"
+          },
+          {
+            "field": "share",
+            "type": "quantitative",
+            "title": "Share",
+            "format": ".1%"
+          }
         ]
       }
     },
     {
       "transform": [
-        {"fold": ["land_share", "protected_share"], "as": ["key", "share"]},
-        {"calculate": "datum.key == 'land_share' ? 'Share of Australia\\'s land' : 'Share of Australia\\'s protected land'", "as": "measure"},
-        {"filter": "datum.state == 'Western Australia' || datum.state == 'Queensland' || datum.state == 'South Australia' || datum.state == 'New South Wales'"}
+        {
+          "fold": [
+            "land_share",
+            "protected_share"
+          ],
+          "as": [
+            "key",
+            "share"
+          ]
+        },
+        {
+          "calculate": "datum.key == 'land_share' ? 'Share of Australia\\'s land' : 'Share of Australia\\'s protected land'",
+          "as": "measure"
+        },
+        {
+          "filter": "datum.state == 'Western Australia' || datum.state == 'Queensland' || datum.state == 'South Australia' || datum.state == 'New South Wales'"
+        }
       ],
-      "mark": {"type": "text", "dy": -13, "fontSize": 11, "fontWeight": "bold"},
+      "mark": {
+        "type": "text",
+        "dy": -13,
+        "fontSize": 11,
+        "fontWeight": "bold"
+      },
       "encoding": {
-        "x": {"field": "share", "type": "quantitative"},
-        "text": {"field": "share", "type": "quantitative", "format": ".0%"},
+        "x": {
+          "field": "share",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "share",
+          "type": "quantitative",
+          "format": ".0%"
+        },
         "color": {
           "field": "measure",
           "type": "nominal",
-          "scale": {"domain": ["Share of Australia's land", "Share of Australia's protected land"], "range": ["#8d8d8d", "#2e7d32"]},
+          "scale": {
+            "domain": [
+              "Share of Australia's land",
+              "Share of Australia's protected land"
+            ],
+            "range": [
+              "#8d8d8d",
+              "#2e7d32"
+            ]
+          },
           "legend": null
         }
       }
     },
     {
-      "data": {"values": [{"state": "Queensland", "x": 0.235, "t": "Queensland: 22% of the land, only 9% of the protected land"}]},
-      "mark": {"type": "text", "align": "left", "fontSize": 11.5, "fontStyle": "italic", "color": "#444", "dy": 15},
+      "data": {
+        "values": [
+          {
+            "state": "Queensland",
+            "x": 0.225,
+            "t": "← 22% of Australia's land, but only 9% of its protected land"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "fontSize": 11.5,
+        "fontStyle": "italic",
+        "color": "#444",
+        "dy": 0,
+        "dx": 12,
+        "baseline": "middle"
+      },
       "encoding": {
-        "x": {"field": "x", "type": "quantitative"},
-        "y": {"field": "state", "type": "nominal"},
-        "text": {"field": "t"}
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "state",
+          "type": "nominal"
+        },
+        "text": {
+          "field": "t"
+        }
       }
     }
   ],
   "config": {
-    "view": {"stroke": null},
-    "legend": {"labelLimit": 320},
-    "axis": {"labelLimit": 320},
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "labelLimit": 320
+    },
+    "axis": {
+      "labelLimit": 320
+    },
     "font": "'Source Sans 3', Helvetica, Arial, sans-serif"
   }
 }

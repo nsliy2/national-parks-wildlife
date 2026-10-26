@@ -13,7 +13,7 @@
   },
   "width": "container",
   "height": {
-    "step": 46
+    "step": 54
   },
   "data": {
     "url": "https://raw.githubusercontent.com/nsliy2/national-parks-wildlife/main/data/national_parks.csv",
@@ -262,30 +262,118 @@
       }
     },
     {
-      "transform": [{"filter": "datum.featured && datum.total_area >= 1000000"}],
-      "mark": {"type": "text", "align": "right", "dx": -9, "dy": -9, "fontSize": 11, "fontWeight": "bold", "color": "#111"},
+      "transform": [
+        {
+          "filter": "datum.featured && datum.total_area >= 1000000"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -9,
+        "dy": -9,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#111"
+      },
       "encoding": {
-        "yOffset": {"field": "jitter", "type": "quantitative", "scale": {"domain": [-0.6, 1.6]}},
-        "text": {"field": "short_name"}
+        "yOffset": {
+          "field": "jitter",
+          "type": "quantitative",
+          "scale": {
+            "domain": [
+              -0.6,
+              1.6
+            ]
+          }
+        },
+        "text": {
+          "field": "short_name"
+        }
       }
     },
     {
       "transform": [
-        {"filter": "datum.state == 'NT'"},
-        {"aggregate": [{"op": "median", "field": "total_area", "as": "med"}], "groupby": ["state_label", "state_median"]},
-        {"calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'", "as": "lab"}
+        {
+          "filter": "datum.state == 'NT'"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "median",
+              "field": "total_area",
+              "as": "med"
+            }
+          ],
+          "groupby": [
+            "state_label",
+            "state_median"
+          ]
+        },
+        {
+          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
+          "as": "lab"
+        }
       ],
-      "mark": {"type": "text", "align": "right", "dx": -6, "dy": -15, "fontSize": 11, "fontWeight": "bold", "color": "#111"},
-      "encoding": {"x": {"field": "med", "type": "quantitative"}, "text": {"field": "lab"}}
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -6,
+        "dy": -21,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#111"
+      },
+      "encoding": {
+        "x": {
+          "field": "med",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
     },
     {
       "transform": [
-        {"filter": "datum.state == 'QLD'"},
-        {"aggregate": [{"op": "median", "field": "total_area", "as": "med"}], "groupby": ["state_label", "state_median"]},
-        {"calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'", "as": "lab"}
+        {
+          "filter": "datum.state == 'QLD'"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "median",
+              "field": "total_area",
+              "as": "med"
+            }
+          ],
+          "groupby": [
+            "state_label",
+            "state_median"
+          ]
+        },
+        {
+          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
+          "as": "lab"
+        }
       ],
-      "mark": {"type": "text", "align": "center", "dy": 21, "fontSize": 11, "fontWeight": "bold", "color": "#111"},
-      "encoding": {"x": {"field": "med", "type": "quantitative"}, "text": {"field": "lab"}}
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "dy": 28,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#111"
+      },
+      "encoding": {
+        "x": {
+          "field": "med",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
     }
   ],
   "config": {
