@@ -322,6 +322,51 @@
         "dy": -21,
         "fontSize": 11,
         "fontWeight": "bold",
+        "color": "white",
+        "stroke": "white",
+        "strokeWidth": 4,
+        "strokeJoin": "round"
+      },
+      "encoding": {
+        "x": {
+          "field": "med",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.state == 'NT'"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "median",
+              "field": "total_area",
+              "as": "med"
+            }
+          ],
+          "groupby": [
+            "state_label",
+            "state_median"
+          ]
+        },
+        {
+          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dx": -6,
+        "dy": -21,
+        "fontSize": 11,
+        "fontWeight": "bold",
         "color": "#111"
       },
       "encoding": {
@@ -359,11 +404,57 @@
       ],
       "mark": {
         "type": "text",
-        "align": "center",
-        "dy": 28,
+        "align": "right",
+        "dy": -21,
         "fontSize": 11,
         "fontWeight": "bold",
-        "color": "#111"
+        "color": "white",
+        "dx": -6,
+        "stroke": "white",
+        "strokeWidth": 4,
+        "strokeJoin": "round"
+      },
+      "encoding": {
+        "x": {
+          "field": "med",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.state == 'QLD'"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "median",
+              "field": "total_area",
+              "as": "med"
+            }
+          ],
+          "groupby": [
+            "state_label",
+            "state_median"
+          ]
+        },
+        {
+          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dy": -21,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#111",
+        "dx": -6
       },
       "encoding": {
         "x": {
