@@ -129,6 +129,82 @@
   "layer": [
     {
       "mark": {
+        "type": "bar",
+        "size": 42,
+        "fill": "#f7f8f6",
+        "stroke": "#c9cfc6",
+        "strokeWidth": 1,
+        "cornerRadius": 3
+      },
+      "data": {
+        "values": [
+          {
+            "x": 1.12,
+            "x2": 1300,
+            "row": "Australian Capital Territory (1)"
+          },
+          {
+            "x": 1.12,
+            "x2": 1300,
+            "row": "Jervis Bay Territory (1)"
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x2"
+        },
+        "y": {
+          "field": "row",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rule",
+        "color": "#555",
+        "strokeWidth": 1
+      },
+      "data": {
+        "values": [
+          {
+            "x": 1300,
+            "x2": 124681,
+            "row": "Australian Capital Territory (1)",
+            "row2": "Northern Territory (18)"
+          },
+          {
+            "x": 1300,
+            "x2": 3357,
+            "row": "Jervis Bay Territory (1)",
+            "row2": "Queensland (320)"
+          }
+        ]
+      },
+      "encoding": {
+        "x": {
+          "field": "x",
+          "type": "quantitative"
+        },
+        "x2": {
+          "field": "x2"
+        },
+        "y": {
+          "field": "row",
+          "type": "nominal"
+        },
+        "y2": {
+          "field": "row2"
+        }
+      }
+    },
+    {
+      "mark": {
         "type": "circle",
         "size": 28,
         "color": "#2e7d32",
@@ -293,180 +369,46 @@
       }
     },
     {
-      "transform": [
-        {
-          "filter": "datum.state == 'NT'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "median",
-              "field": "total_area",
-              "as": "med"
-            }
-          ],
-          "groupby": [
-            "state_label",
-            "state_median"
-          ]
-        },
-        {
-          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares,', 'about 37 times Queensland\\'s']",
-          "as": "lab"
-        }
-      ],
       "mark": {
         "type": "text",
-        "align": "right",
-        "dx": -6,
-        "dy": -28,
+        "align": "left",
+        "baseline": "middle",
         "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "white",
-        "stroke": "white",
-        "strokeWidth": 4,
-        "strokeJoin": "round",
-        "lineHeight": 13
+        "color": "#222",
+        "lineHeight": 14,
+        "dy": -7
+      },
+      "data": {
+        "values": [
+          {
+            "x": 1.3,
+            "row": "Australian Capital Territory (1)",
+            "t": [
+              "Northern Territory: only 18 parks, but its median",
+              "park is 124,681 hectares, about 37 times Queensland's"
+            ]
+          },
+          {
+            "x": 1.3,
+            "row": "Jervis Bay Territory (1)",
+            "t": [
+              "Queensland: the most parks (320), but its median",
+              "park is only 3,357 hectares; half are smaller"
+            ]
+          }
+        ]
       },
       "encoding": {
         "x": {
-          "field": "med",
+          "field": "x",
           "type": "quantitative"
         },
-        "text": {
-          "field": "lab"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state == 'NT'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "median",
-              "field": "total_area",
-              "as": "med"
-            }
-          ],
-          "groupby": [
-            "state_label",
-            "state_median"
-          ]
-        },
-        {
-          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares,', 'about 37 times Queensland\\'s']",
-          "as": "lab"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dx": -6,
-        "dy": -28,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#111",
-        "lineHeight": 13
-      },
-      "encoding": {
-        "x": {
-          "field": "med",
-          "type": "quantitative"
+        "y": {
+          "field": "row",
+          "type": "nominal"
         },
         "text": {
-          "field": "lab"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state == 'QLD'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "median",
-              "field": "total_area",
-              "as": "med"
-            }
-          ],
-          "groupby": [
-            "state_label",
-            "state_median"
-          ]
-        },
-        {
-          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares;', 'half of Queensland\\'s 320 parks are smaller']",
-          "as": "lab"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dy": -30,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "white",
-        "dx": -8,
-        "stroke": "white",
-        "strokeWidth": 4,
-        "strokeJoin": "round",
-        "lineHeight": 13
-      },
-      "encoding": {
-        "x": {
-          "field": "med",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "lab"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state == 'QLD'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "median",
-              "field": "total_area",
-              "as": "med"
-            }
-          ],
-          "groupby": [
-            "state_label",
-            "state_median"
-          ]
-        },
-        {
-          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares;', 'half of Queensland\\'s 320 parks are smaller']",
-          "as": "lab"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dy": -30,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#111",
-        "dx": -8,
-        "lineHeight": 13
-      },
-      "encoding": {
-        "x": {
-          "field": "med",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "lab"
+          "field": "t"
         }
       }
     }
