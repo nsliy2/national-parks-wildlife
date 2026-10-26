@@ -188,7 +188,7 @@
       "data": {
         "values": [
           {
-            "t": "39 mammals are already extinct, more than all other groups combined (28)"
+            "t": "Outlined: 39 mammals are already extinct, more than all other animal groups combined (28)"
           }
         ]
       },
@@ -202,23 +202,19 @@
           },
           "encoding": {
             "x": {
-              "value": {
-                "expr": "width - 458"
-              }
+              "value": 0
             },
             "x2": {
-              "value": {
-                "expr": "width - 440"
-              }
+              "value": 16
             },
             "y": {
               "value": {
-                "expr": "height + 77"
+                "expr": "height + 122"
               }
             },
             "y2": {
               "value": {
-                "expr": "height + 91"
+                "expr": "height + 136"
               }
             }
           }
@@ -228,19 +224,17 @@
             "type": "text",
             "align": "left",
             "baseline": "middle",
-            "fontSize": 12,
-            "fontWeight": "bold",
+            "fontSize": 11,
+            "fontWeight": "normal",
             "color": "#222"
           },
           "encoding": {
             "x": {
-              "value": {
-                "expr": "width - 432"
-              }
+              "value": 24
             },
             "y": {
               "value": {
-                "expr": "height + 84"
+                "expr": "height + 129"
               }
             },
             "text": {
