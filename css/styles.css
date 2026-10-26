@@ -8,7 +8,7 @@ body {
 }
 
 .page {
-  max-width: 960px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 48px 56px;
   background: white;
@@ -304,17 +304,21 @@ body {
   font-size: 17px;
 }
 
-/* --- one centred reading column; charts are wider and centred too --- */
+/* --- one shared width: text, boxes and charts all line up with the same left and right margins --- */
 .intro,
 section > h2,
 section > h3.sub,
 section > p,
 section > .key-finding,
+section p,
+.how-to,
+.key-finding,
+.conclusion p,
 .footer > * {
   box-sizing: border-box;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 section p {
