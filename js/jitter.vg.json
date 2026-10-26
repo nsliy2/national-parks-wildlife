@@ -311,7 +311,7 @@
           ]
         },
         {
-          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
+          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares,', 'about 37 times Queensland\\'s']",
           "as": "lab"
         }
       ],
@@ -319,13 +319,14 @@
         "type": "text",
         "align": "right",
         "dx": -6,
-        "dy": -21,
+        "dy": -28,
         "fontSize": 11,
         "fontWeight": "bold",
         "color": "white",
         "stroke": "white",
         "strokeWidth": 4,
-        "strokeJoin": "round"
+        "strokeJoin": "round",
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
@@ -356,7 +357,7 @@
           ]
         },
         {
-          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
+          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares,', 'about 37 times Queensland\\'s']",
           "as": "lab"
         }
       ],
@@ -364,97 +365,100 @@
         "type": "text",
         "align": "right",
         "dx": -6,
-        "dy": -21,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "#111"
-      },
-      "encoding": {
-        "x": {
-          "field": "med",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "lab"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state == 'QLD'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "median",
-              "field": "total_area",
-              "as": "med"
-            }
-          ],
-          "groupby": [
-            "state_label",
-            "state_median"
-          ]
-        },
-        {
-          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
-          "as": "lab"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dy": -21,
-        "fontSize": 11,
-        "fontWeight": "bold",
-        "color": "white",
-        "dx": -6,
-        "stroke": "white",
-        "strokeWidth": 4,
-        "strokeJoin": "round"
-      },
-      "encoding": {
-        "x": {
-          "field": "med",
-          "type": "quantitative"
-        },
-        "text": {
-          "field": "lab"
-        }
-      }
-    },
-    {
-      "transform": [
-        {
-          "filter": "datum.state == 'QLD'"
-        },
-        {
-          "aggregate": [
-            {
-              "op": "median",
-              "field": "total_area",
-              "as": "med"
-            }
-          ],
-          "groupby": [
-            "state_label",
-            "state_median"
-          ]
-        },
-        {
-          "calculate": "'typical: ' + format(datum.med, ',.0f') + ' hectares'",
-          "as": "lab"
-        }
-      ],
-      "mark": {
-        "type": "text",
-        "align": "right",
-        "dy": -21,
+        "dy": -28,
         "fontSize": 11,
         "fontWeight": "bold",
         "color": "#111",
-        "dx": -6
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "med",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.state == 'QLD'"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "median",
+              "field": "total_area",
+              "as": "med"
+            }
+          ],
+          "groupby": [
+            "state_label",
+            "state_median"
+          ]
+        },
+        {
+          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares;', 'half of Queensland\\'s 320 parks are smaller']",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dy": -30,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "white",
+        "dx": -8,
+        "stroke": "white",
+        "strokeWidth": 4,
+        "strokeJoin": "round",
+        "lineHeight": 13
+      },
+      "encoding": {
+        "x": {
+          "field": "med",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "lab"
+        }
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.state == 'QLD'"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "median",
+              "field": "total_area",
+              "as": "med"
+            }
+          ],
+          "groupby": [
+            "state_label",
+            "state_median"
+          ]
+        },
+        {
+          "calculate": "['median park: ' + format(datum.med, ',.0f') + ' hectares;', 'half of Queensland\\'s 320 parks are smaller']",
+          "as": "lab"
+        }
+      ],
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "dy": -30,
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#111",
+        "dx": -8,
+        "lineHeight": 13
       },
       "encoding": {
         "x": {
